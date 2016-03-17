@@ -3,20 +3,12 @@
 	using System.Collections.Generic;
 	using System.Reflection;
 	using Artemis;
-	using PrimitiveEngine.Interpreter;
 	using Reverie.Entities;
 	using Reverie.Entities.Components;
 
 
 	public static class MockWorld
 	{
-		public static Commands CreateVerbs(EntityWorld world)
-		{
-			Commands commands = new Commands(world);
-			return commands;
-		}
-
-
 		public static Dictionary<int, Prototype> CreatePrototypes()
 		{
 			Dictionary<int, Prototype> prototypes = new Dictionary<int, Prototype>();

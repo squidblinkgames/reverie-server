@@ -44,15 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CommandExpression.cs" />
-    <Compile Include="Commands\CommandInterpreter.cs" />
-    <Compile Include="Commands\EntityExpression.cs" />
-    <Compile Include="Commands\Expression.cs" />
-    <Compile Include="Commands\Expressions\InventoryExpression.cs" />
-    <Compile Include="Commands\ExpressionType.cs" />
-    <Compile Include="Commands\GameCommand.cs" />
-    <Compile Include="Commands\Commands.cs" />
-    <Compile Include="Commands\ParameterExpression.cs" />
+    <Compile Include="Commands\InventoryCommand.cs" />
     <Compile Include="Debug\MockWorld.cs" />
     <Compile Include="Entities\Components\Prototype.cs" />
     <Compile Include="Entities\EntityType.cs" />

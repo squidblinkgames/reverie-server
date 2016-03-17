@@ -31,8 +31,8 @@
 
 
 		#region Events
-		public event Action<WebSocket> Connected;
-		public event Action<WebSocket> Disconnected;
+		public event Action<WebSocket> ClientConnected;
+		public event Action<WebSocket> ClientDisconnected;
 		public event Action<WebSocket, Exception> ErrorThrown;
 		public event Action<WebSocket, string> MessageReceived;
 		#endregion
@@ -63,8 +63,8 @@
 		{
 			try
 			{
-				if (Connected != null)
-					Connected.Invoke(websocket);
+				if (ClientConnected != null)
+					ClientConnected.Invoke(websocket);
 
 				while (websocket.IsConnected)
 				{
@@ -77,8 +77,8 @@
 						MessageReceived.Invoke(websocket, message);
 				}
 
-				if (Disconnected != null)
-					Disconnected.Invoke(websocket);
+				if (ClientDisconnected != null)
+					ClientDisconnected.Invoke(websocket);
 			}
 
 			catch (Exception ex)

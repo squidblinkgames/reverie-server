@@ -9,13 +9,13 @@
 	public class Container : IComponent
 	{
 		#region Fields
-		private int capacity;
+		private int? capacity;
 		private List<int> childEntityIds;
 		#endregion
 
 
 		#region Constructors
-		public Container(int capacity, List<int> childEntityIds = null)
+		public Container(int? capacity = null, List<int> childEntityIds = null)
 		{
 			this.capacity = capacity;
 			this.childEntityIds = childEntityIds;
@@ -31,7 +31,7 @@
 		/// The capacity.
 		/// </value>
 		[JsonProperty]
-		public int Capacity
+		public int? Capacity
 		{
 			get { return this.capacity; }
 			set
@@ -52,7 +52,12 @@
 		[JsonProperty]
 		public IReadOnlyCollection<int> ChildEntityIds
 		{
-			get { return this.childEntityIds.AsReadOnly(); }
+			get
+			{
+				if (this.childEntityIds == null)
+					return null;
+				return this.childEntityIds.AsReadOnly();
+			}
 		}
 		#endregion
 
@@ -64,6 +69,9 @@
 		/// <returns>How many of the entity was added.</returns>
 		public int AddEntity(Entity entity)
 		{
+			if (entity == null)
+				return 0;
+			
 			if (this.childEntityIds == null)
 				this.childEntityIds = new List<int>();
 			

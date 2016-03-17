@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Reflection;
 	using Artemis;
 	using PrimitiveEngine;
 	using PrimitiveEngine.Interpreter;
@@ -23,7 +24,7 @@
 		public ReverieGame()
 		{
 			this.gameWorld = MockWorld.Generate();
-			this.commandInterpreter = new CommandInterpreter();
+			this.commandInterpreter = new CommandInterpreter(Assembly.GetAssembly(typeof(ReverieGame)));
 		}
 		#endregion
 

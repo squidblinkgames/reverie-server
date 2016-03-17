@@ -3,6 +3,7 @@
 	using System;
 	using System.Collections.Generic;
 	using System.Configuration;
+	using System.Reflection;
 	using Artemis;
 	using Newtonsoft.Json;
 	using NUnit.Framework;
@@ -112,7 +113,7 @@
 			this.entity = this.world.CreateEntity();
 
 			this.containerSystem = this.world.GetSystem<ContainerSystem>();
-			this.interpreter = new CommandInterpreter();
+			this.interpreter = new CommandInterpreter(Assembly.GetAssembly(typeof(ReverieGame)));
 
 			Container inventory = new Container(10);
 			this.entity.AddComponent(inventory);

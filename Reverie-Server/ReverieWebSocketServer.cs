@@ -10,7 +10,7 @@
 
 	public class ReverieWebSocketServer
 	{
-		private const int Port = 80;
+		private const int Port = 3000;
 		private static readonly WebSocketListenerOptions serverOptions =
 			new WebSocketListenerOptions { SubProtocols = new[] { "text" } };
 

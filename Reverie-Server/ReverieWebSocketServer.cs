@@ -10,6 +10,7 @@
 
 	public class ReverieWebSocketServer
 	{
+		private const int Port = 80;
 		private static readonly WebSocketListenerOptions serverOptions =
 			new WebSocketListenerOptions { SubProtocols = new[] { "text" } };
 
@@ -26,7 +27,7 @@
 			this.activePlayers = new Dictionary<WebSocket, PlayerSession>();
 			this.reverieGame = new ReverieGame();
 			this.server = 
-				new WebSocketServer(new IPEndPoint(IPAddress.Any, 32666), serverOptions);
+				new WebSocketServer(new IPEndPoint(IPAddress.Any, Port), serverOptions);
 		}
 
 

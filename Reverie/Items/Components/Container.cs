@@ -10,12 +10,12 @@
 	{
 		#region Fields
 		private int? capacity;
-		private List<int> childEntityIds;
+		private List<long> childEntityIds;
 		#endregion
 
 
 		#region Constructors
-		public Container(int? capacity = null, List<int> childEntityIds = null)
+		public Container(int? capacity = null, List<long> childEntityIds = null)
 		{
 			this.capacity = capacity;
 			this.childEntityIds = childEntityIds;
@@ -50,7 +50,7 @@
 		/// The child entity ids.
 		/// </value>
 		[JsonProperty]
-		public IReadOnlyCollection<int> ChildEntityIds
+		public IReadOnlyCollection<long> ChildEntityIds
 		{
 			get
 			{
@@ -73,14 +73,14 @@
 				return 0;
 			
 			if (this.childEntityIds == null)
-				this.childEntityIds = new List<int>();
+				this.childEntityIds = new List<long>();
 			
 			// TODO: Check if capacity is breached.
 			// TODO: Don't allow child containers to add containers they're inside. Just compare child id's.
-			if (this.childEntityIds.Contains(entity.Id))
+			if (this.childEntityIds.Contains(entity.UniqueId))
 				return 0;
 
-			this.childEntityIds.Add(entity.Id);
+			this.childEntityIds.Add(entity.UniqueId);
 
 			return 1;
 		}
@@ -97,10 +97,10 @@
 			if (this.childEntityIds == null)
 				return 0;
 
-			if (!this.childEntityIds.Contains(entity.Id))
+			if (!this.childEntityIds.Contains(entity.UniqueId))
 				return 0;
 
-			this.childEntityIds.Remove(entity.Id);
+			this.childEntityIds.Remove(entity.UniqueId);
 
 			return 1;
 		}

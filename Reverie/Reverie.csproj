@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\PrototypeCache.cs" />
     <Compile Include="Commands\InventoryCommand.cs" />
     <Compile Include="Debug\MockWorld.cs" />
     <Compile Include="Entities\Components\Prototype.cs" />
@@ -53,7 +54,7 @@
     <Compile Include="ReverieGame.cs" />
     <Compile Include="Items\Components\Container.cs" />
     <Compile Include="Items\Components\Stackable.cs" />
-    <Compile Include="Items\Models\ItemModel.cs" />
+    <Compile Include="Items\Models\ContainerModel.cs" />
     <Compile Include="Items\Systems\ContainerSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Geography\Room.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Geography\WorldCoordinate.cs" />
     <Compile Include="Geography\WorldLocale.cs" />
     <Compile Include="ReverieState.cs" />
+    <Compile Include="Templates\NewPlayerTemplate.cs" />
     <Compile Include="Utilities\JsonExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

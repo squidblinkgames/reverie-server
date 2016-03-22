@@ -20,13 +20,13 @@
 
 
 		#region Fields
-		private readonly int value;
+		private readonly long value;
 		private readonly string name;
 		#endregion
 
 
 		#region Constructors
-		public EntityType(int value, string name)
+		public EntityType(long value, string name)
 		{
 			this.value = value;
 			this.name = name;
@@ -41,7 +41,7 @@
 		}
 
 
-		public int Value
+		public long Value
 		{
 			get { return this.value; }
 		}
@@ -49,7 +49,7 @@
 
 
 		#region Operators
-		public static implicit operator int(EntityType entityType)
+		public static implicit operator long(EntityType entityType)
 		{
 			return entityType.value;
 		}

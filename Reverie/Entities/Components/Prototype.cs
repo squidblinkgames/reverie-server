@@ -11,19 +11,19 @@ namespace Reverie.Entities.Components
 
 
 		#region Fields
-		private readonly int id;
+		private readonly long id;
 		private readonly string name;
 		private readonly Dictionary<string, DynamicValue> properties;
-		private readonly int? parentPrototypeId;
+		private readonly long? parentPrototypeId;
 		#endregion
 
 
 		#region Constructors
 		public Prototype(
-			int id,
+			long id,
 			string name,
 			Dictionary<string, DynamicValue> properties,
-			int? parentPrototypeId = null)
+			long? parentPrototypeId = null)
 		{
 			this.id = id;
 			this.name = name;
@@ -34,7 +34,7 @@ namespace Reverie.Entities.Components
 
 
 		#region Properties
-		public int Id
+		public long Id
 		{
 			get { return this.id; }
 		}
@@ -46,7 +46,7 @@ namespace Reverie.Entities.Components
 		}
 
 
-		public int? ParentPrototypeId
+		public long? ParentPrototypeId
 		{
 			get { return this.parentPrototypeId; }
 		}

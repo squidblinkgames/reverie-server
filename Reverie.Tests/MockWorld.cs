@@ -9,9 +9,9 @@
 
 	public static class MockWorld
 	{
-		public static Dictionary<int, Prototype> CreatePrototypes()
+		public static Dictionary<long, Prototype> CreatePrototypes()
 		{
-			Dictionary<int, Prototype> prototypes = new Dictionary<int, Prototype>();
+			Dictionary<long, Prototype> prototypes = new Dictionary<long, Prototype>();
 			foreach (EntityType type in EntityType.AllTypes)
 			{
 				Prototype prototype = new Prototype(type.Value, type.Name, null);

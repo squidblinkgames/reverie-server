@@ -96,7 +96,7 @@
 
 		private async Task ListenForConnections()
 		{
-			while (this.listener.IsStarted)
+			if (this.listener.IsStarted)
 			{
 				try
 				{

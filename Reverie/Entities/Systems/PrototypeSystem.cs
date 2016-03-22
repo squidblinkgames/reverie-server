@@ -2,8 +2,8 @@
 {
 	using System.Collections.Generic;
 	using Artemis;
-	using Artemis.Attributes;
 	using Artemis.Systems;
+	using PrimitiveEngine.Artemis;
 	using Reverie.Entities.Components;
 
 
@@ -11,19 +11,19 @@
 	public class PrototypeSystem : EntitySystem
 	{
 		#region Fields
-		private Dictionary<int, Prototype> prototypes;
+		private Dictionary<long, Prototype> prototypes;
 		#endregion
 
 
 		#region Properties
-		public Dictionary<int, Prototype> Prototypes
+		public Dictionary<long, Prototype> Prototypes
 		{
 			get
 			{
 				if (this.prototypes == null)
 				{
 					this.prototypes =
-						this.BlackBoard.GetEntry<Dictionary<int, Prototype>>(Prototype.Key);
+						this.BlackBoard.GetEntry<Dictionary<long, Prototype>>(Prototype.Key);
 				}
 				return this.prototypes;
 			}
@@ -47,7 +47,7 @@
 			if (prototype.ParentPrototypeId == null)
 				return prototype;
 
-			int parentId = (int)prototype.ParentPrototypeId;
+			long parentId = (int)prototype.ParentPrototypeId;
 			if (this.Prototypes.ContainsKey(parentId))
 				return GetBasePrototype(this.Prototypes[parentId]);
 

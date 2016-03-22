@@ -3,16 +3,16 @@
 	using System.Collections.Generic;
 
 
-	public class ItemModel
+	public class ContainerModel
 	{
 		#region Properties
-		public int Id { get; set; }
-		public int PrototypeId { get; set; }
+		public long Id { get; set; }
+		public long PrototypeId { get; set; }
 		public int? Quantity { get; set; }
 		public string Name { get; set; }
 		public string Type { get; set; }
-		public List<ItemModel> Items { get; set; }
-		public List<int> ItemIds { get; set; } 
+		public List<ContainerModel> Entities { get; set; }
+		public List<long> ItemIds { get; set; } 
 		#endregion
 	}
 }

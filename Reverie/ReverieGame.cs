@@ -10,6 +10,7 @@
 	using Reverie.Entities;
 	using Reverie.Entities.Components;
 	using Reverie.Items.Components;
+	using Reverie.Templates;
 
 
 	public class ReverieGame : GameLoop
@@ -43,42 +44,10 @@
 		#endregion
 
 
-		public void AddTestInventory(Entity entity)
-		{
-			Container inventory = new Container(10);
-			entity.AddComponent(inventory);
-
-			Dictionary<int, Prototype> prototypes =
-				this.gameWorld.BlackBoard.GetEntry<Dictionary<int, Prototype>>(Prototype.Key);
-
-			Entity itemStack = this.gameWorld.CreateEntity();
-			itemStack.AddComponent(new Stackable(3, 3));
-			itemStack.AddComponent(prototypes[EntityType.Junk]);
-
-			Entity itemSingle = this.gameWorld.CreateEntity();
-			itemSingle.AddComponent(prototypes[EntityType.Junk]);
-
-			Entity bag = this.gameWorld.CreateEntity();
-			Container containerComponent = new Container(3);
-			Prototype bagPrototype = new Prototype(
-				prototypes.Count,
-				"Bag",
-				null,
-				EntityType.Container);
-			bag.AddComponent(bagPrototype);
-			bag.AddComponent(containerComponent);
-			containerComponent.AddEntity(itemStack);
-
-			inventory.AddEntity(bag);
-			inventory.AddEntity(itemSingle);
-		}
-
-
 		public Entity InsertPlayer()
 		{
 			Console.WriteLine("New player");
-			Entity player = this.GameWorld.CreateEntity();
-			AddTestInventory(player);
+			Entity player = this.GameWorld.CreateEntityFromTemplate(NewPlayerTemplate.Name);
 			return player;
 		}
 

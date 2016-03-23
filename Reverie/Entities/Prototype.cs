@@ -1,8 +1,8 @@
-namespace Reverie.Entities.Components
+namespace Reverie.Entities
 {
 	using System.Collections.Generic;
+	using PrimitiveEngine.Artemis;
 	using PrimitiveEngine;
-	using Artemis;
 
 
 	public class Prototype : IComponent

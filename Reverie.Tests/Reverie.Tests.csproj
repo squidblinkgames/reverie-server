@@ -56,7 +56,6 @@
   <ItemGroup>
     <Compile Include="Items\Systems\InventorySystemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MockWorld.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

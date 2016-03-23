@@ -3,12 +3,11 @@
 	using System;
 	using System.Collections.Generic;
 	using System.Reflection;
-	using Artemis;
+	using PrimitiveEngine.Artemis;
 	using PrimitiveEngine;
 	using PrimitiveEngine.Interpreter;
 	using Reverie.Debug;
 	using Reverie.Entities;
-	using Reverie.Entities.Components;
 	using Reverie.Items.Components;
 	using Reverie.Templates;
 

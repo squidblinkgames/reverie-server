@@ -3,10 +3,8 @@
 	using System;
 	using System.Collections.Generic;
 	using System.Runtime.CompilerServices;
-	using Artemis;
 	using PrimitiveEngine.Artemis;
 	using Reverie.Entities;
-	using Reverie.Entities.Components;
 	using Reverie.Items.Components;
 
 
@@ -40,10 +38,10 @@
 
 			Entity itemStack = gameWorld.CreateEntity();
 			itemStack.AddComponent(new Stackable(3, 3));
-			itemStack.AddComponent(prototypes[EntityType.Junk]);
+			itemStack.AddComponent(prototypes[EntityType.Consumable]);
 
 			Entity itemSingle = gameWorld.CreateEntity();
-			itemSingle.AddComponent(prototypes[EntityType.Junk]);
+			itemSingle.AddComponent(prototypes[EntityType.Consumable]);
 
 			Entity bag = gameWorld.CreateEntity();
 			Container containerComponent = new Container(3);

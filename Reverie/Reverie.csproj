@@ -48,9 +48,9 @@
     <Compile Include="Cache\PrototypeCache.cs" />
     <Compile Include="Commands\InventoryCommand.cs" />
     <Compile Include="Debug\MockWorld.cs" />
-    <Compile Include="Entities\Components\Prototype.cs" />
+    <Compile Include="Entities\Anatomy.cs" />
     <Compile Include="Entities\EntityType.cs" />
-    <Compile Include="Entities\Systems\PrototypeSystem.cs" />
+    <Compile Include="Entities\Prototype.cs" />
     <Compile Include="ReverieGame.cs" />
     <Compile Include="Items\Components\Container.cs" />
     <Compile Include="Items\Components\Stackable.cs" />

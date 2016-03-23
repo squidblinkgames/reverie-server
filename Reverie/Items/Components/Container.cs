@@ -1,7 +1,7 @@
 ﻿namespace Reverie.Items.Components
 {
 	using System.Collections.Generic;
-	using Artemis;
+	using PrimitiveEngine.Artemis;
 	using Newtonsoft.Json;
 
 

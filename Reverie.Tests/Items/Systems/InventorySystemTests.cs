@@ -3,15 +3,15 @@
 	using System;
 	using System.Collections.Generic;
 	using System.Reflection;
-	using Artemis;
+	using PrimitiveEngine.Artemis;
 	using Newtonsoft.Json;
 	using NUnit.Framework;
 	using PrimitiveEngine.Interpreter;
+	using Reverie.Cache;
+	using Reverie.Debug;
 	using Reverie.Entities;
-	using Reverie.Entities.Components;
 	using Reverie.Items.Components;
 	using Reverie.Items.Models;
-	using Reverie.Tests;
 
 
 	[TestFixture]
@@ -117,15 +117,15 @@
 			Container inventory = new Container(10);
 			this.entity.AddComponent(inventory);
 
-			Dictionary<long, Prototype> prototypes =
-				world.BlackBoard.GetEntry<Dictionary<long, Prototype>>(Prototype.Key);
+			PrototypeCache prototypes =
+				world.BlackBoard.GetEntry<PrototypeCache>();
 
 			Entity itemStack = world.CreateEntity();
 			itemStack.AddComponent(new Stackable(3, 3));
-			itemStack.AddComponent(prototypes[EntityType.Junk]);
+			itemStack.AddComponent(prototypes[EntityType.Consumable]);
 
 			Entity itemSingle = world.CreateEntity();
-			itemSingle.AddComponent(prototypes[EntityType.Junk]);
+			itemSingle.AddComponent(prototypes[EntityType.Consumable]);
 
 			Entity bag = world.CreateEntity();
 			Container containerComponent = new Container(3);

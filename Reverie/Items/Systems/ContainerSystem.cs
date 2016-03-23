@@ -2,21 +2,19 @@
 {
 	using System.Collections.Generic;
 	using System.Linq;
-	using Artemis;
-	using Artemis.Systems;
+	using PrimitiveEngine.Artemis.Systems;
 	using PrimitiveEngine.Artemis;
-	using Reverie.Entities.Components;
-	using Reverie.Entities.Systems;
+	using Reverie.Cache;
+	using Reverie.Entities;
 	using Reverie.Items.Components;
 	using Reverie.Items.Models;
 
 
 	[ArtemisEntitySystem]
-	
 	public class ContainerSystem : EntitySystem
 	{
 		#region Fields
-		private PrototypeSystem prototypeSystem;
+		private PrototypeCache prototypeSystem;
 		#endregion
 
 
@@ -34,12 +32,16 @@
 		/// Gets the prototype system.
 		/// </summary>
 		/// <value>The prototype system.</value>
-		public PrototypeSystem PrototypeSystem
+		public PrototypeCache PrototypeSystem
 		{
 			get
 			{
 				if (this.prototypeSystem == null)
-					this.prototypeSystem = this.GetSystem<PrototypeSystem>();
+				{
+					this.prototypeSystem =
+						this.EntityWorld.BlackBoard.GetEntry<PrototypeCache>();
+				}
+
 				return this.prototypeSystem;
 			}
 		}

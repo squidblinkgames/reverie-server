@@ -1,7 +1,7 @@
 ﻿namespace Reverie.Commands
 {
 	using System.Collections.Generic;
-	using Artemis;
+	using PrimitiveEngine.Artemis;
 	using PrimitiveEngine.Interpreter;
 	using Reverie.Items.Models;
 	using Reverie.Items.Systems;

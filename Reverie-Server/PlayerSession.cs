@@ -1,6 +1,6 @@
 ﻿namespace Reverie.Server
 {
-	using Artemis;
+	using PrimitiveEngine.Artemis;
 	using vtortola.WebSockets;
 
 

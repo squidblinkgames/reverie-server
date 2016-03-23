@@ -1,8 +1,8 @@
 ﻿namespace Reverie
 {
 	using System.Collections.Generic;
-	using Artemis;
-	using Reverie.Entities.Components;
+	using PrimitiveEngine.Artemis;
+	using Reverie.Entities;
 
 
 	public class ReverieState

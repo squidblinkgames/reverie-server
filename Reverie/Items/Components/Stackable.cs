@@ -1,6 +1,6 @@
 ﻿namespace Reverie.Items.Components
 {
-	using Artemis;
+	using PrimitiveEngine.Artemis;
 
 
 	public class Stackable : IComponent

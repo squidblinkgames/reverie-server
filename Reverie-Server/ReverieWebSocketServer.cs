@@ -4,7 +4,7 @@
 	using System.Collections.Generic;
 	using System.Net;
 	using System.Threading.Tasks;
-	using Artemis;
+	using PrimitiveEngine.Artemis;
 	using vtortola.WebSockets;
 
 

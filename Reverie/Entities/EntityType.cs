@@ -7,15 +7,20 @@
 	{
 		public static readonly EntityType None = new EntityType(0, "None");
 		public static readonly EntityType Creature = new EntityType(1, "Creature");
-		public static readonly EntityType Junk = new EntityType(2, "Junk");
-		public static readonly EntityType Container = new EntityType(3, "Container");
+		public static readonly EntityType Container = new EntityType(2, "Container");
+		public static readonly EntityType Consumable = new EntityType(3, "Consumable");
+		public static readonly EntityType Weapon = new EntityType(4, "Weapon");
+		public static readonly EntityType Apparel = new EntityType(5, "Apparel");
+
 		public static readonly List<EntityType> AllTypes =
 			new List<EntityType>
 			{
 				None,
 				Creature,
-				Junk,
-				Container
+				Container,
+				Consumable,
+				Weapon,
+				Apparel
 			};
 
 

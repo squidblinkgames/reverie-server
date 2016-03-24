@@ -69,9 +69,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Actors\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\PrimitiveEngine\PrimitiveEngine\PrimitiveEngine.csproj">
       <Project>{2534c349-8421-47b8-a7b7-08ac9f49dafb}</Project>

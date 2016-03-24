@@ -1,4 +1,4 @@
-﻿namespace Reverie.Cache
+﻿namespace Reverie.State
 {
 	using System;
 	using System.Collections;

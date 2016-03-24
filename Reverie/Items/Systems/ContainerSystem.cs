@@ -4,7 +4,7 @@
 	using System.Linq;
 	using PrimitiveEngine.Artemis.Systems;
 	using PrimitiveEngine.Artemis;
-	using Reverie.Cache;
+	using Reverie.State;
 	using Reverie.Entities;
 	using Reverie.Items.Components;
 	using Reverie.Items.Models;

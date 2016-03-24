@@ -35,7 +35,7 @@
 
 		public override void ProcessExpression(GameCommand command)
 		{
-			ContainerSystem containerSystem = command.InvokingEntity.GetSystem<ContainerSystem>();
+			Inventory inventory = command.InvokingEntity.GetSystem<Inventory>();
 			List<ContainerModel> inventory;
 
 			Expression nextToken = command.GetRightToken();
@@ -45,7 +45,7 @@
 			{
 				inventory = containerSystem.GetContainerContents(
 					command.InvokingEntity,
-					ContainerSystem.LoadOptions.Recursive);
+					Inventory.LoadOptions.Recursive);
 			}
 			else
 				inventory = containerSystem.GetContainerContents(command.InvokingEntity);

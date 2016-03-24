@@ -1,6 +1,7 @@
 ﻿namespace Reverie.Entities
 {
 	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
 	using PrimitiveEngine.Artemis;
 
 
@@ -35,9 +36,9 @@
 
 
 		#region Properties
-		public Dictionary<string, long?> Parts
+		public IReadOnlyDictionary<string, long?> Parts
 		{
-			get { return this.parts; }
+			get { return new ReadOnlyDictionary<string, long?>(this.parts); }
 		}
 		#endregion
 	}

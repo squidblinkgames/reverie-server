@@ -7,7 +7,7 @@
 	using Newtonsoft.Json;
 	using NUnit.Framework;
 	using PrimitiveEngine.Interpreter;
-	using Reverie.Cache;
+	using Reverie.State;
 	using Reverie.Debug;
 	using Reverie.Entities;
 	using Reverie.Items.Components;
@@ -20,7 +20,7 @@
 		#region Fields
 		private EntityWorld world;
 		private Entity entity;
-		private ContainerSystem containerSystem;
+		private Inventory inventory;
 		private CommandInterpreter interpreter;
 		#endregion
 
@@ -28,9 +28,9 @@
 		[Test]
 		public void Get_Container_Contents_Recursively_Test()
 		{
-			List<ContainerModel> inventory = this.containerSystem.GetContainerContents(
+			List<ContainerModel> inventory = this.inventory.GetContainerContents(
 				this.entity,
-				ContainerSystem.LoadOptions.Recursive);
+				Inventory.LoadOptions.Recursive);
 			Console.WriteLine(inventory.ToPrettyJson());
 			Assert.AreEqual(inventory.Count, 2);
 			Assert.IsNotNull(inventory[0].ItemIds);
@@ -42,7 +42,7 @@
 		public void Get_Container_Contents_Test()
 		{
 			List<ContainerModel> inventory =
-				this.containerSystem.GetContainerContents(this.entity);
+				this.inventory.GetContainerContents(this.entity);
 			Console.WriteLine(inventory.ToPrettyJson());
 			Assert.AreEqual(inventory.Count, 2);
 			Assert.IsNull(inventory[0].ItemIds);
@@ -111,7 +111,7 @@
 			this.world = MockWorld.Generate();
 			this.entity = this.world.CreateEntity();
 
-			this.containerSystem = this.world.GetSystem<ContainerSystem>();
+			this.inventory = this.world.GetSystem<Inventory>();
 			this.interpreter = new CommandInterpreter(Assembly.GetAssembly(typeof(ReverieGame)));
 
 			Container inventory = new Container(10);

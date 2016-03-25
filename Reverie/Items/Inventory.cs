@@ -1,23 +1,16 @@
-﻿namespace Reverie.Items.Systems
+﻿namespace Reverie.Items
 {
 	using System.Collections.Generic;
 	using System.Linq;
-	using PrimitiveEngine.Artemis.Systems;
 	using PrimitiveEngine.Artemis;
-	using Reverie.State;
 	using Reverie.Entities;
 	using Reverie.Items.Components;
 	using Reverie.Items.Models;
+	using Reverie.State;
 
 
-	[ArtemisEntitySystem]
-	public class ContainerSystem : EntitySystem
+	public static class Inventory
 	{
-		#region Fields
-		private PrototypeCache prototypeSystem;
-		#endregion
-
-
 		#region Enums
 		public enum LoadOptions
 		{
@@ -27,33 +20,12 @@
 		#endregion
 
 
-		#region Properties
-		/// <summary>
-		/// Gets the prototype system.
-		/// </summary>
-		/// <value>The prototype system.</value>
-		public PrototypeCache PrototypeSystem
-		{
-			get
-			{
-				if (this.prototypeSystem == null)
-				{
-					this.prototypeSystem =
-						this.EntityWorld.BlackBoard.GetEntry<PrototypeCache>();
-				}
-
-				return this.prototypeSystem;
-			}
-		}
-		#endregion
-
-
 		/// <summary>
 		/// Gets the inventory of an Entity.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <returns>A list of item models representing inventory contents.</returns>
-		public List<ContainerModel> GetContainerContents(
+		public static List<ContainerModel> GetContainerContents(
 			Entity entity,
 			params LoadOptions[] options)
 		{
@@ -77,8 +49,9 @@
 		/// </summary>
 		/// <param name="itemEntity">The item entity.</param>
 		/// <returns>The item model.</returns>
-		public ContainerModel GetItemModel(Entity itemEntity, bool recursive)
+		public static ContainerModel GetItemModel(Entity itemEntity, bool recursive)
 		{
+			EntityWorld world = itemEntity.EntityWorld;
 			Prototype prototype = itemEntity.GetComponent<Prototype>();
 			ContainerModel containerModel = SaturateBasicItemModel(itemEntity, prototype);
 
@@ -94,7 +67,7 @@
 
 				foreach (long childId in container.ChildEntityIds)
 				{
-					Entity childEntity = this.GetEntityByUniqueId(childId);
+					Entity childEntity = world.GetEntityByUniqueId(childId);
 					ContainerModel childContainerModel = GetItemModel(childEntity, recursive);
 					containerModel.ItemIds.Add(childContainerModel.Id);
 					containerModel.Entities.Add(childContainerModel);
@@ -106,15 +79,17 @@
 
 
 		#region Helper Methods
-		private ContainerModel SaturateBasicItemModel(Entity itemEntity, Prototype prototype)
+		private static ContainerModel SaturateBasicItemModel(Entity itemEntity, Prototype prototype)
 		{
+			EntityWorld world = itemEntity.EntityWorld;
+			PrototypeCache prototypes = WorldCache.GetCacheForWorld(world).Prototypes;
 			ContainerModel containerModel = new ContainerModel();
 
 			// Get basic item details.
 			containerModel.Id = itemEntity.UniqueId;
 			containerModel.PrototypeId = prototype.Id;
 			containerModel.Name = prototype.Name;
-			containerModel.Type = this.PrototypeSystem.GetBasePrototype(itemEntity).Name;
+			containerModel.Type = prototypes.GetBasePrototype(itemEntity).Name;
 
 			// Get quantity.
 			Stackable stack = itemEntity.GetComponent<Stackable>();

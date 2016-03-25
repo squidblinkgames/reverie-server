@@ -2,24 +2,16 @@
 {
 	public class ReverieState
 	{
-		#region Fields
-		private readonly PrototypeCache prototypes;
-		#endregion
-
-
 		#region Constructors
 		public ReverieState()
 		{
-			this.prototypes = new PrototypeCache();
+			this.Prototypes = new PrototypeCache();
 		}
 		#endregion
 
 
 		#region Properties
-		public PrototypeCache Prototypes
-		{
-			get { return this.prototypes; }
-		}
+		public PrototypeCache Prototypes { get; set; }
 		#endregion
 	}
 }

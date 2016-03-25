@@ -1,10 +1,9 @@
 ﻿namespace Reverie.Commands
 {
 	using System.Collections.Generic;
-	using PrimitiveEngine.Artemis;
 	using PrimitiveEngine.Interpreter;
+	using Reverie.Items;
 	using Reverie.Items.Models;
-	using Reverie.Items.Systems;
 
 
 	public class InventoryCommand : CommandExpression
@@ -35,7 +34,7 @@
 
 		public override void ProcessExpression(GameCommand command)
 		{
-			Inventory inventory = command.InvokingEntity.GetSystem<Inventory>();
+			
 			List<ContainerModel> inventory;
 
 			Expression nextToken = command.GetRightToken();
@@ -43,12 +42,12 @@
 				&& nextToken.ExpressionType == ExpressionType.Parameter
 				&& nextToken.Result == "all")
 			{
-				inventory = containerSystem.GetContainerContents(
+				inventory = Inventory.GetContainerContents(
 					command.InvokingEntity,
 					Inventory.LoadOptions.Recursive);
 			}
 			else
-				inventory = containerSystem.GetContainerContents(command.InvokingEntity);
+				inventory = Inventory.GetContainerContents(command.InvokingEntity);
 
 			this.Interpretted = true;
 			this.Result = inventory.ToPrettyJson();

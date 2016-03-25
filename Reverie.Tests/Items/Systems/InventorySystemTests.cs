@@ -20,7 +20,6 @@
 		#region Fields
 		private EntityWorld world;
 		private Entity entity;
-		private Inventory inventory;
 		private CommandInterpreter interpreter;
 		#endregion
 
@@ -28,7 +27,7 @@
 		[Test]
 		public void Get_Container_Contents_Recursively_Test()
 		{
-			List<ContainerModel> inventory = this.inventory.GetContainerContents(
+			List<ContainerModel> inventory = Inventory.GetContainerContents(
 				this.entity,
 				Inventory.LoadOptions.Recursive);
 			Console.WriteLine(inventory.ToPrettyJson());
@@ -42,7 +41,7 @@
 		public void Get_Container_Contents_Test()
 		{
 			List<ContainerModel> inventory =
-				this.inventory.GetContainerContents(this.entity);
+				Inventory.GetContainerContents(this.entity);
 			Console.WriteLine(inventory.ToPrettyJson());
 			Assert.AreEqual(inventory.Count, 2);
 			Assert.IsNull(inventory[0].ItemIds);
@@ -111,14 +110,12 @@
 			this.world = MockWorld.Generate();
 			this.entity = this.world.CreateEntity();
 
-			this.inventory = this.world.GetSystem<Inventory>();
 			this.interpreter = new CommandInterpreter(Assembly.GetAssembly(typeof(ReverieGame)));
 
 			Container inventory = new Container(10);
 			this.entity.AddComponent(inventory);
 
-			PrototypeCache prototypes =
-				world.BlackBoard.GetEntry<PrototypeCache>();
+			PrototypeCache prototypes = WorldCache.GetCacheForWorld(this.world).Prototypes;
 
 			Entity itemStack = world.CreateEntity();
 			itemStack.AddComponent(new Stackable(3, 3));

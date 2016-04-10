@@ -1,7 +1,6 @@
-﻿namespace Reverie.Commands
+﻿namespace CommandParser.Commands
 {
 	using System.Collections.Generic;
-	using PrimitiveEngine.Interpreter;
 	using Reverie.Items;
 	using Reverie.Items.Models;
 
@@ -32,22 +31,22 @@
 		}
 
 
-		public override void ProcessExpression(GameCommand command)
+		public override void ProcessExpression(ExpressionTokens expressionTokens)
 		{
 			
 			List<ContainerModel> inventory;
 
-			Expression nextToken = command.GetRightToken();
+			Expression nextToken = expressionTokens.GetRightToken();
 			if (nextToken != null
 				&& nextToken.ExpressionType == ExpressionType.Parameter
 				&& nextToken.Result == "all")
 			{
 				inventory = Inventory.GetContainerContents(
-					command.InvokingEntity,
+					expressionTokens.InvokingEntity,
 					Inventory.LoadOptions.Recursive);
 			}
 			else
-				inventory = Inventory.GetContainerContents(command.InvokingEntity);
+				inventory = Inventory.GetContainerContents(expressionTokens.InvokingEntity);
 
 			this.Interpretted = true;
 			this.Result = inventory.ToPrettyJson();

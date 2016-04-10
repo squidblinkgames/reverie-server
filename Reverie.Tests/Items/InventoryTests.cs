@@ -1,26 +1,27 @@
-﻿namespace Reverie.Items.Systems.Tests
+﻿namespace Reverie.Tests.Items
 {
 	using System;
 	using System.Collections.Generic;
 	using System.Reflection;
-	using PrimitiveEngine.Artemis;
 	using Newtonsoft.Json;
 	using NUnit.Framework;
-	using PrimitiveEngine.Interpreter;
-	using Reverie.State;
+	using PrimitiveEngine;
+	using CommandParser;
 	using Reverie.Debug;
 	using Reverie.Entities;
+	using Reverie.Items;
 	using Reverie.Items.Components;
 	using Reverie.Items.Models;
+	using Reverie.State;
 
 
 	[TestFixture]
-	public class InventorySystemTests
+	public class InventoryTests
 	{
 		#region Fields
 		private EntityWorld world;
 		private Entity entity;
-		private CommandInterpreter interpreter;
+		private Interpreter interpreter;
 		#endregion
 
 
@@ -84,6 +85,7 @@
 				this.entity,
 				"items");
 			ContainerModel[] inventory = JsonConvert.DeserializeObject<ContainerModel[]>(result);
+			Console.WriteLine(result);
 			Assert.AreEqual(inventory.Length, 2);
 			Assert.IsNull(inventory[0].ItemIds);
 			Assert.IsNull(inventory[0].Entities);
@@ -110,30 +112,30 @@
 			this.world = MockWorld.Generate();
 			this.entity = this.world.CreateEntity();
 
-			this.interpreter = new CommandInterpreter(Assembly.GetAssembly(typeof(ReverieGame)));
+			this.interpreter = new Interpreter(Assembly.GetAssembly(typeof(ReverieGame)));
 
-			Container inventory = new Container(10);
+			ContainerComponent inventory = new ContainerComponent(10);
 			this.entity.AddComponent(inventory);
 
-			PrototypeCache prototypes = WorldCache.GetCacheForWorld(this.world).Prototypes;
+			PrototypeCache prototypes = WorldCache.GetCache(this.world).Prototypes;
 
-			Entity itemStack = world.CreateEntity();
-			itemStack.AddComponent(new Stackable(3, 3));
+			Entity itemStack = this.world.CreateEntity();
+			itemStack.AddComponent(new StackComponent(3, 3));
 			itemStack.AddComponent(prototypes[EntityType.Consumable]);
 
-			Entity itemSingle = world.CreateEntity();
+			Entity itemSingle = this.world.CreateEntity();
 			itemSingle.AddComponent(prototypes[EntityType.Consumable]);
 
-			Entity bag = world.CreateEntity();
-			Container containerComponent = new Container(3);
-			Prototype bagPrototype = new Prototype(
+			Entity bag = this.world.CreateEntity();
+			ContainerComponent containerComponentComponent = new ContainerComponent(3);
+			PrototypeComponent bagPrototype = new PrototypeComponent(
 				prototypes.Count,
 				"Bag",
 				null,
 				EntityType.Container);
 			bag.AddComponent(bagPrototype);
-			bag.AddComponent(containerComponent);
-			containerComponent.AddEntity(itemStack);
+			bag.AddComponent(containerComponentComponent);
+			containerComponentComponent.AddEntity(itemStack);
 
 			inventory.AddEntity(bag);
 			inventory.AddEntity(itemSingle);

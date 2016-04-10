@@ -1,9 +1,10 @@
 ﻿namespace Reverie.Items.Components
 {
-	using PrimitiveEngine.Artemis;
+	using PrimitiveEngine;
+	using PrimitiveEngine.Components;
 
 
-	public class Stackable : IComponent
+	public class StackComponent : Component
 	{
 		#region Fields
 		private int quantity;
@@ -12,7 +13,7 @@
 
 
 		#region Constructors
-		public Stackable(int quantity, int maxQuantity)
+		public StackComponent(int quantity, int maxQuantity)
 		{
 			this.quantity = quantity;
 			this.maxQuantity = maxQuantity;

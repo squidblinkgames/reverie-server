@@ -1,6 +1,7 @@
 ﻿namespace Reverie.Server
 {
-	using PrimitiveEngine.Artemis;
+	using PrimitiveEngine;
+	using Reverie.Entities;
 	using vtortola.WebSockets;
 
 
@@ -17,6 +18,10 @@
 		{
 			this.webSocket = webSocket;
 			this.playerEntity = playerEntity;
+
+			PlayerComponent playerComponent = this.playerEntity.GetComponent<PlayerComponent>();
+			if (playerComponent != null)
+				playerComponent.Updated += OnPlayerEntityUpdated;
 		}
 		#endregion
 
@@ -33,5 +38,11 @@
 			get { return this.webSocket; }
 		}
 		#endregion
+
+
+		public void OnPlayerEntityUpdated(string message)
+		{
+			this.webSocket.WriteString(message);
+		}
 	}
 }

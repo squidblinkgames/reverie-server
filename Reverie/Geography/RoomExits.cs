@@ -1,4 +1,4 @@
-﻿namespace Reverie.Geography
+﻿namespace Reverie.Maps
 {
 	using System;
 

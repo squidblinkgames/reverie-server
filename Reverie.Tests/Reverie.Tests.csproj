@@ -54,7 +54,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Items\Systems\InventorySystemTests.cs" />
+    <Compile Include="Items\InventoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

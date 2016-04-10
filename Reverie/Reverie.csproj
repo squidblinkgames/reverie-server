@@ -45,26 +45,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandParser\CommandExpression.cs" />
+    <Compile Include="CommandParser\Interpreter.cs" />
+    <Compile Include="CommandParser\Commands\DropCommand.cs" />
+    <Compile Include="CommandParser\Commands\InventoryCommand.cs" />
+    <Compile Include="CommandParser\Commands\TakeCommand.cs" />
+    <Compile Include="CommandParser\Commands\TransferCommand.cs" />
+    <Compile Include="CommandParser\ExpressionTokens.cs" />
+    <Compile Include="CommandParser\EntityExpression.cs" />
+    <Compile Include="CommandParser\Expression.cs" />
+    <Compile Include="CommandParser\ExpressionType.cs" />
+    <Compile Include="CommandParser\ParameterExpression.cs" />
+    <Compile Include="Entities\PlayerComponent.cs" />
+    <Compile Include="Entities\LocationComponent.cs" />
+    <Compile Include="Geography\MapNodeComponent.cs" />
+    <Compile Include="Geography\Room.cs" />
     <Compile Include="Items\Inventory.cs" />
+    <Compile Include="State\MapCache.cs" />
     <Compile Include="State\PrototypeCache.cs" />
     <Compile Include="State\ReverieState.cs" />
     <Compile Include="State\WorldCache.cs" />
-    <Compile Include="Commands\InventoryCommand.cs" />
     <Compile Include="Debug\MockWorld.cs" />
-    <Compile Include="Entities\Creature.cs" />
+    <Compile Include="Entities\CreatureComponent.cs" />
     <Compile Include="Entities\EntityType.cs" />
-    <Compile Include="Entities\Prototype.cs" />
+    <Compile Include="Entities\PrototypeComponent.cs" />
     <Compile Include="ReverieGame.cs" />
-    <Compile Include="Items\Components\Container.cs" />
-    <Compile Include="Items\Components\Stackable.cs" />
+    <Compile Include="Items\Components\ContainerComponent.cs" />
+    <Compile Include="Items\Components\StackComponent.cs" />
     <Compile Include="Items\Models\ContainerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Geography\Room.cs" />
     <Compile Include="Geography\RoomExits.cs" />
-    <Compile Include="Geography\World.cs" />
-    <Compile Include="Geography\WorldCoordinate.cs" />
-    <Compile Include="Geography\WorldLocale.cs" />
+    <Compile Include="Geography\Map.cs" />
     <Compile Include="Templates\NewPlayerTemplate.cs" />
+    <Compile Include="Utilities\EntityExtensions.cs" />
     <Compile Include="Utilities\JsonExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

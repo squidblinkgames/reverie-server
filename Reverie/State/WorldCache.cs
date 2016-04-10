@@ -2,7 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
-	using PrimitiveEngine.Artemis;
+	using PrimitiveEngine;
 
 
 	public static class WorldCache
@@ -18,7 +18,7 @@
 		#endregion
 
 
-		public static ReverieState CreateCacheForWorld(EntityWorld world)
+		public static ReverieState CreateCache(EntityWorld world)
 		{
 			if (cache.ContainsKey(world))
 				throw new ArgumentException("New world key already exists in WorldCache.");
@@ -30,7 +30,7 @@
 		}
 
 
-		public static ReverieState GetCacheForWorld(EntityWorld world)
+		public static ReverieState GetCache(EntityWorld world)
 		{
 			if (!cache.ContainsKey(world))
 				throw new ArgumentException("World key not found in WorldCache.");

@@ -1,11 +1,32 @@
-﻿namespace Reverie.Geography
+﻿namespace Reverie.Maps
 {
-	public class Room
+	public sealed class Room
 	{
 		#region Fields
-		private readonly string name;
-		private readonly string description;
-		private readonly string metaData;
+		private string name;
+		private string description;
+		private string metaData;
 		#endregion
+
+
+		public string Name
+		{
+			get { return this.name; }
+			set { this.name = value; }
+		}
+
+
+		public string Description
+		{
+			get { return this.description; }
+			set { this.description = value; }
+		}
+
+
+		public string MetaData
+		{
+			get { return this.metaData; }
+			set { this.metaData = value; }
+		}
 	}
 }

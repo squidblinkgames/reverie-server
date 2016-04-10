@@ -71,7 +71,7 @@
 					string message = await websocket
 												.ReadStringAsync(CancellationToken.None)
 												.ConfigureAwait(false);
-
+					//Console.WriteLine("Websocket: Got message.");
 					if (message != null
 						&& MessageReceived != null)
 						MessageReceived.Invoke(websocket, message);
@@ -83,6 +83,7 @@
 
 			catch (Exception ex)
 			{
+				Console.WriteLine("Error: " + ex);
 				if (ErrorThrown != null)
 					ErrorThrown.Invoke(websocket, ex);
 			}

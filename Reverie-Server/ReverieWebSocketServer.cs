@@ -4,7 +4,7 @@
 	using System.Collections.Generic;
 	using System.Net;
 	using System.Threading.Tasks;
-	using PrimitiveEngine.Artemis;
+	using PrimitiveEngine;
 	using vtortola.WebSockets;
 
 
@@ -38,12 +38,14 @@
 			this.server.ClientConnected += OnClientConnected;
 			this.server.MessageReceived += OnMessageReceived;
 			this.server.Start();
+			Console.WriteLine("Started server.");
 		}
 
 
 		#region Helper Methods
 		private void OnMessageReceived(WebSocket webSocket, string message)
 		{
+			Console.WriteLine("Incoming message.");
 			if (message == null)
 				return;
 
@@ -58,7 +60,7 @@
 			PlayerSession player = this.activePlayers[webSocket];
 
 			string commandResult = 
-				this.reverieGame.CommandInterpreter.Interpret(player.PlayerEntity, message);
+				this.reverieGame.Interpreter.Interpret(player.PlayerEntity, message);
 			Console.WriteLine(commandResult);
 			webSocket.WriteString(commandResult);
 		}
@@ -66,6 +68,7 @@
 
 		private void OnClientConnected(WebSocket webSocket)
 		{
+			Console.WriteLine("Client connected.");
 			Entity player = this.reverieGame.InsertPlayer();
 			PlayerSession playerSession = new PlayerSession(webSocket, player);
 			this.activePlayers.Add(webSocket, playerSession);

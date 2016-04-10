@@ -3,25 +3,25 @@
 	using System;
 	using System.Collections;
 	using System.Collections.Generic;
-	using PrimitiveEngine.Artemis;
+	using PrimitiveEngine;
 	using Reverie.Entities;
 
 
-	public class PrototypeCache : IEnumerable<Prototype>
+	public class PrototypeCache : IEnumerable<PrototypeComponent>
 	{
 		#region Fields
-		private readonly Dictionary<long, Prototype> prototypes;
+		private readonly Dictionary<long?, PrototypeComponent> prototypes;
 		#endregion
 
 
 		#region Constructors
 		public PrototypeCache()
 		{
-			this.prototypes = new Dictionary<long, Prototype>();
+			this.prototypes = new Dictionary<long?, PrototypeComponent>();
 		}
 
 
-		public PrototypeCache(Dictionary<long, Prototype> prototypes)
+		public PrototypeCache(Dictionary<long?, PrototypeComponent> prototypes)
 		{
 			this.prototypes = prototypes;
 		}
@@ -37,7 +37,7 @@
 
 
 		#region Indexers
-		public Prototype this[long id]
+		public PrototypeComponent this[long? id]
 		{
 			get
 			{
@@ -49,7 +49,7 @@
 		#endregion
 
 
-		public void Add(Prototype prototype)
+		public void Add(PrototypeComponent prototype)
 		{
 			if (this.prototypes.ContainsKey(prototype.Id))
 			{
@@ -62,9 +62,9 @@
 		}
 
 
-		public Prototype GetBasePrototype(Entity entity)
+		public PrototypeComponent GetBasePrototype(Entity entity)
 		{
-			Prototype prototype = entity.GetComponent<Prototype>();
+			PrototypeComponent prototype = entity.GetComponent<PrototypeComponent>();
 			if (prototype == null)
 				return null;
 
@@ -72,7 +72,7 @@
 		}
 
 
-		public Prototype GetBasePrototype(Prototype prototype)
+		public PrototypeComponent GetBasePrototype(PrototypeComponent prototype)
 		{
 			if (prototype.ParentPrototypeId == null)
 				return prototype;
@@ -85,23 +85,23 @@
 		}
 
 
-		public IEnumerator<Prototype> GetEnumerator()
+		public IEnumerator<PrototypeComponent> GetEnumerator()
 		{
 			return this.prototypes.Values.GetEnumerator();
 		}
 
 
-		public Prototype Remove(Prototype prototype)
+		public PrototypeComponent Remove(PrototypeComponent prototype)
 		{
 			return Remove(prototype.Id);
 		}
 
 
-		public Prototype Remove(long id)
+		public PrototypeComponent Remove(long id)
 		{
 			if (!this.prototypes.ContainsKey(id))
 				return null;
-			Prototype removedPrototype = this.prototypes[id];
+			PrototypeComponent removedPrototype = this.prototypes[id];
 			this.prototypes.Remove(id);
 
 			return removedPrototype;

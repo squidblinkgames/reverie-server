@@ -1,15 +1,13 @@
 namespace Reverie.Entities
 {
 	using System.Collections.Generic;
-	using PrimitiveEngine.Artemis;
 	using PrimitiveEngine;
+	using PrimitiveEngine.Components;
+	using Reverie.State;
 
 
-	public class Prototype : IComponent
+	public class PrototypeComponent : Component
 	{
-		public const string Key = "Prototype";
-
-
 		#region Fields
 		private readonly long id;
 		private readonly string name;
@@ -19,7 +17,7 @@ namespace Reverie.Entities
 
 
 		#region Constructors
-		public Prototype(
+		public PrototypeComponent(
 			long id,
 			string name,
 			Dictionary<string, DynamicValue> properties,
@@ -57,5 +55,26 @@ namespace Reverie.Entities
 			get { return this.properties; }
 		}
 		#endregion
+
+
+		//TODO
+		private void MergeAllParentProperties(
+			EntityWorld world,
+			PrototypeComponent parentPrototype)
+		{
+			foreach (KeyValuePair<string, DynamicValue> parentProperty in parentPrototype.properties)
+			{
+				if (this.properties.ContainsKey(parentProperty.Key))
+					continue;
+				this.properties.Add(parentProperty.Key, parentProperty.Value);
+			}
+
+			if (parentPrototype.parentPrototypeId != null)
+			{
+				parentPrototype =
+					WorldCache.GetCache(world).Prototypes[parentPrototype.parentPrototypeId];
+				MergeAllParentProperties(world, parentPrototype);
+			}
+		}
 	}
 }

@@ -1,12 +1,13 @@
 ﻿namespace Reverie.Items.Components
 {
 	using System.Collections.Generic;
-	using PrimitiveEngine.Artemis;
 	using Newtonsoft.Json;
+	using PrimitiveEngine;
+	using PrimitiveEngine.Components;
 
 
 	[JsonObject(MemberSerialization.OptIn)]
-	public class Container : IComponent
+	public class ContainerComponent : Component
 	{
 		#region Fields
 		private int? capacity;
@@ -15,7 +16,7 @@
 
 
 		#region Constructors
-		public Container(int? capacity = null, List<long> childEntityIds = null)
+		public ContainerComponent(int? capacity = null, List<long> childEntityIds = null)
 		{
 			this.capacity = capacity;
 			this.childEntityIds = childEntityIds;

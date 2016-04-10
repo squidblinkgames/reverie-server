@@ -2,9 +2,8 @@
 {
 	using System;
 	using System.Reflection;
-	using PrimitiveEngine.Artemis;
 	using PrimitiveEngine;
-	using PrimitiveEngine.Interpreter;
+	using CommandParser;
 	using Reverie.Debug;
 	using Reverie.Templates;
 
@@ -13,7 +12,7 @@
 	{
 		#region Fields
 		private EntityWorld gameWorld;
-		private CommandInterpreter commandInterpreter;
+		private CommandParser.Interpreter interpreter;
 		#endregion
 
 
@@ -21,15 +20,15 @@
 		public ReverieGame()
 		{
 			this.gameWorld = MockWorld.Generate();
-			this.commandInterpreter = new CommandInterpreter(Assembly.GetAssembly(typeof(ReverieGame)));
+			this.interpreter = new CommandParser.Interpreter(Assembly.GetAssembly(typeof(ReverieGame)));
 		}
 		#endregion
 
 
 		#region Properties
-		public CommandInterpreter CommandInterpreter
+		public CommandParser.Interpreter Interpreter
 		{
-			get { return this.commandInterpreter; }
+			get { return this.interpreter; }
 		}
 
 

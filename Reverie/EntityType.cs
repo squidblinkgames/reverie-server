@@ -1,4 +1,4 @@
-﻿namespace Reverie.Entities
+﻿namespace Reverie
 {
 	using System.Collections.Generic;
 

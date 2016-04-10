@@ -3,14 +3,43 @@
 	using System.Collections.Generic;
 	using System.Linq;
 	using PrimitiveEngine;
-	using Reverie.Entities;
+	using Reverie.Components;
 	using Reverie.Maps;
-	using Reverie.State;
+	using Reverie.Cache;
 
 
 	public static class EntityExtensions
 	{
-		public static MapNodeComponent GetMapNode(this Entity entity)
+		public static Entity FindByName(this IEnumerable<Entity> entityList, string expression)
+		{
+			// TODO: Parse indexes for finding specific items out of duplicates.
+			return entityList.FirstOrDefault(
+				item => item
+							.GetName()
+							.ToLower()
+							.Equals(expression));
+		}
+
+
+		public static IReadOnlyCollection<Entity> GetEntitiesFromWorld(
+			this IEnumerable<long?> entityIds,
+			EntityWorld entityWorld)
+		{
+			List<Entity> entities = new List<Entity>();
+			foreach (long? entityId in entityIds)
+			{
+				if (entityId == null)
+					continue;
+				Entity entity = entityWorld.GetEntityByUniqueId((long)entityId);
+				if (entity != null)
+					entities.Add(entity);
+			}
+
+			return entities;
+		}
+
+
+		public static MapNode GetMapNode(this Entity entity)
 		{
 			LocationComponent location = entity.GetComponent<LocationComponent>();
 			if (location == null)
@@ -25,11 +54,11 @@
 
 		public static string GetName(this Entity entity)
 		{
-			PrototypeComponent prototype = entity.GetComponent<PrototypeComponent>();
-			if (prototype == null)
+			EntityDataComponent entityData = entity.GetComponent<EntityDataComponent>();
+			if (entityData == null)
 				return null;
 
-			return prototype.Name;
+			return entityData.Name;
 		}
 
 
@@ -43,14 +72,15 @@
 		}
 
 
-		public static Entity FindByName(this IEnumerable<Entity> entityList, string expression)
+		public static IReadOnlyCollection<long> GetUniqueIds(this IEnumerable<Entity> entities)
 		{
-			// TODO: Parse indexes for finding specific items out of duplicates.
-			return entityList.FirstOrDefault(
-				item => item
-							.GetName()
-							.ToLower()
-							.Equals(expression));
+			List<long> entityIds = new List<long>();
+			foreach (Entity entity in entities)
+			{
+				entityIds.Add(entity.UniqueId);
+			}
+
+			return entityIds.AsReadOnly();
 		}
 	}
 }

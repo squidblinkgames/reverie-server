@@ -1,4 +1,4 @@
-﻿namespace Reverie.State
+﻿namespace Reverie.Cache
 {
 	public sealed class ReverieState
 	{

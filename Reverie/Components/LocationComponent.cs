@@ -1,4 +1,4 @@
-﻿namespace Reverie.Entities
+﻿namespace Reverie.Components
 {
 	using Newtonsoft.Json;
 	using PrimitiveEngine;

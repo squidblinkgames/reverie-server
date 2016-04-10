@@ -1,6 +1,5 @@
-﻿namespace Reverie.Items.Components
+﻿namespace Reverie.Components
 {
-	using PrimitiveEngine;
 	using PrimitiveEngine.Components;
 
 

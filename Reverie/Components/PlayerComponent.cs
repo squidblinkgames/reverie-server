@@ -1,7 +1,6 @@
-﻿namespace Reverie.Entities
+﻿namespace Reverie.Components
 {
 	using System;
-	using PrimitiveEngine;
 	using PrimitiveEngine.Components;
 
 

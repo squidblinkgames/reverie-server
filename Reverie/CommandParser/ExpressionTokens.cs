@@ -4,8 +4,7 @@
 	using System.Linq;
 	using System.Text.RegularExpressions;
 	using PrimitiveEngine;
-	using Reverie.Items;
-	using Reverie.Items.Components;
+	using Reverie.Components;
 	using Reverie.Utilities;
 
 
@@ -163,9 +162,8 @@
 				if (AddInventoryEntityToken(expression))
 					continue;
 
-				// TODO: Add back
-				//if (AddRoomEntityToken(expression))
-				//	continue;
+				if (AddRoomEntityToken(expression))
+					continue;
 
 				this.tokens.Add(new ParameterExpression(expression));
 			}

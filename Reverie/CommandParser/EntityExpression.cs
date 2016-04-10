@@ -1,7 +1,6 @@
 ﻿namespace CommandParser
 {
 	using PrimitiveEngine;
-	using Reverie.Items.Components;
 	using Reverie.Utilities;
 
 

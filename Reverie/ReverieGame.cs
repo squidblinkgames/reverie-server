@@ -3,7 +3,6 @@
 	using System;
 	using System.Reflection;
 	using PrimitiveEngine;
-	using CommandParser;
 	using Reverie.Debug;
 	using Reverie.Templates;
 

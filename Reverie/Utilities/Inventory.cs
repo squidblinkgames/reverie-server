@@ -1,12 +1,11 @@
-﻿namespace Reverie.Items
+﻿namespace Reverie.Utilities
 {
 	using System.Collections.Generic;
 	using System.Linq;
 	using PrimitiveEngine;
-	using Reverie.Entities;
-	using Reverie.Items.Components;
-	using Reverie.Items.Models;
-	using Reverie.State;
+	using Reverie.Components;
+	using Reverie.Models;
+	using Reverie.Cache;
 
 
 	public static class Inventory
@@ -26,19 +25,19 @@
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <returns>A list of item models representing inventory contents.</returns>
-		public static List<ContainerModel> GetContainerContents(
+		public static List<EntityModel> GetContainerContents(
 			this Entity entity,
 			params LoadOptions[] options)
 		{
-			List<ContainerModel> inventory = new List<ContainerModel>();
+			List<EntityModel> inventory = new List<EntityModel>();
 			bool recursive = options.Contains(LoadOptions.Recursive);
 
 			ContainerComponent containerComponent = entity.GetComponent<ContainerComponent>();
 			foreach (long id in containerComponent.ChildEntityIds)
 			{
 				Entity item = entity.GetEntityByUniqueId(id);
-				ContainerModel containerData = GetItemModel(item, options);
-				inventory.Add(containerData);
+				EntityModel entityData = GetItemModel(item, options);
+				inventory.Add(entityData);
 			}
 
 			return inventory;
@@ -70,67 +69,67 @@
 		/// </summary>
 		/// <param name="itemEntity">The item entity.</param>
 		/// <returns>The item model.</returns>
-		public static ContainerModel GetItemModel(this Entity itemEntity, LoadOptions[] options)
+		public static EntityModel GetItemModel(this Entity itemEntity, LoadOptions[] options)
 		{
 			bool recursive = options.Contains(LoadOptions.Recursive);
 
 			EntityWorld world = itemEntity.EntityWorld;
-			PrototypeComponent prototype = itemEntity.GetComponent<PrototypeComponent>();
-			ContainerModel containerModel = SaturateBasicItemModel(itemEntity, prototype, options);
+			EntityDataComponent entityData = itemEntity.GetComponent<EntityDataComponent>();
+			EntityModel entityModel = SaturateBasicItemModel(itemEntity, entityData, options);
 
 			// If a container, get its contents, too.
 			if (!recursive)
-				return containerModel;
+				return entityModel;
 
 			ContainerComponent containerComponent = itemEntity.GetComponent<ContainerComponent>();
 			if (containerComponent != null
 				&& containerComponent.ChildEntityIds != null)
 			{
-				containerModel.ItemIds = new List<long>();
-				containerModel.Entities = new List<ContainerModel>();
+				entityModel.EntityIds = new List<long>();
+				entityModel.Entities = new List<EntityModel>();
 
 				foreach (long childId in containerComponent.ChildEntityIds)
 				{
 					Entity childEntity = world.GetEntityByUniqueId(childId);
-					ContainerModel childContainerModel = GetItemModel(childEntity, options);
-					containerModel.ItemIds.Add(childContainerModel.Id);
-					containerModel.Entities.Add(childContainerModel);
+					EntityModel childEntityModel = GetItemModel(childEntity, options);
+					entityModel.EntityIds.Add(childEntityModel.Id);
+					entityModel.Entities.Add(childEntityModel);
 				}
 			}
 
-			return containerModel;
+			return entityModel;
 		}
 
 
 		#region Helper Methods
-		private static ContainerModel SaturateBasicItemModel(
+		private static EntityModel SaturateBasicItemModel(
 			Entity itemEntity,
-			PrototypeComponent prototype,
+			EntityDataComponent entityData,
 			LoadOptions[] options)
 		{
 			bool toLowercase = options.Contains(LoadOptions.LowercaseNames);
 
 			EntityWorld world = itemEntity.EntityWorld;
 			PrototypeCache prototypes = WorldCache.GetCache(world).Prototypes;
-			ContainerModel containerModel = new ContainerModel();
+			EntityModel entityModel = new EntityModel();
 
 			// Get basic item details.
 			if (toLowercase)
-				containerModel.Name = prototype.Name.ToLower();
+				entityModel.Name = entityData.Name.ToLower();
 			else
-				containerModel.Name = prototype.Name;
-			containerModel.Id = itemEntity.UniqueId;
-			containerModel.PrototypeId = prototype.Id;
-			containerModel.Type = prototypes.GetBasePrototype(itemEntity).Name;
+				entityModel.Name = entityData.Name;
+			entityModel.Id = itemEntity.UniqueId;
+			entityModel.DataId = entityData.Id;
+			entityModel.Type = prototypes.GetBasePrototype(itemEntity).Name;
 
 			// Get quantity.
 			StackComponent stack = itemEntity.GetComponent<StackComponent>();
 			if (stack == null)
-				containerModel.Quantity = 1;
+				entityModel.Quantity = 1;
 			else
-				containerModel.Quantity = stack.Quantity;
+				entityModel.Quantity = stack.Quantity;
 
-			return containerModel;
+			return entityModel;
 		}
 		#endregion
 	}

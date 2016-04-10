@@ -4,7 +4,12 @@
 	using System.Collections.Generic;
 	using System.Net;
 	using System.Threading.Tasks;
+	using Newtonsoft.Json;
 	using PrimitiveEngine;
+	using Reverie.Cache;
+	using Reverie.Maps;
+	using Reverie.Models;
+	using Reverie.Utilities;
 	using vtortola.WebSockets;
 
 
@@ -36,6 +41,7 @@
 			Task task = Task.Run(() => this.reverieGame.Start());
 			
 			this.server.ClientConnected += OnClientConnected;
+			this.server.ClientDisconnected += OnClientDisconnected;
 			this.server.MessageReceived += OnMessageReceived;
 			this.server.Start();
 			Console.WriteLine("Started server.");
@@ -72,7 +78,19 @@
 			Entity player = this.reverieGame.InsertPlayer();
 			PlayerSession playerSession = new PlayerSession(webSocket, player);
 			this.activePlayers.Add(webSocket, playerSession);
-			webSocket.WriteString("Welcome to Reverie MOO: " + webSocket.HttpRequest.Headers.Host);
+			
+			
+			MapNode playerRoom = player.GetMapNode();
+			RoomModel roomModel = new RoomModel(playerRoom, player);
+			
+			webSocket.WriteString(roomModel.ToPrettyJson());
+		}
+
+
+		private void OnClientDisconnected(WebSocket webSocket)
+		{
+			Console.WriteLine("Client disconnected.");
+			this.activePlayers.Remove(webSocket);
 		}
 		#endregion
 	}

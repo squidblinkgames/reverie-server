@@ -7,12 +7,11 @@
 	using NUnit.Framework;
 	using PrimitiveEngine;
 	using CommandParser;
+	using Reverie.Components;
 	using Reverie.Debug;
-	using Reverie.Entities;
-	using Reverie.Items;
-	using Reverie.Items.Components;
-	using Reverie.Items.Models;
-	using Reverie.State;
+	using Reverie.Models;
+	using Reverie.Cache;
+	using Reverie.Utilities;
 
 
 	[TestFixture]
@@ -28,12 +27,12 @@
 		[Test]
 		public void Get_Container_Contents_Recursively_Test()
 		{
-			List<ContainerModel> inventory = Inventory.GetContainerContents(
+			List<EntityModel> inventory = Inventory.GetContainerContents(
 				this.entity,
 				Inventory.LoadOptions.Recursive);
 			Console.WriteLine(inventory.ToPrettyJson());
 			Assert.AreEqual(inventory.Count, 2);
-			Assert.IsNotNull(inventory[0].ItemIds);
+			Assert.IsNotNull(inventory[0].EntityIds);
 			Assert.IsNotNull(inventory[0].Entities);
 		}
 
@@ -41,11 +40,11 @@
 		[Test]
 		public void Get_Container_Contents_Test()
 		{
-			List<ContainerModel> inventory =
+			List<EntityModel> inventory =
 				Inventory.GetContainerContents(this.entity);
 			Console.WriteLine(inventory.ToPrettyJson());
 			Assert.AreEqual(inventory.Count, 2);
-			Assert.IsNull(inventory[0].ItemIds);
+			Assert.IsNull(inventory[0].EntityIds);
 			Assert.IsNull(inventory[0].Entities);
 		}
 
@@ -57,9 +56,9 @@
 				this.entity,
 				"inventory all");
 			Console.WriteLine(result);
-			ContainerModel[] inventory = JsonConvert.DeserializeObject<ContainerModel[]>(result);
+			EntityModel[] inventory = JsonConvert.DeserializeObject<EntityModel[]>(result);
 			Assert.AreEqual(inventory.Length, 2);
-			Assert.IsNotNull(inventory[0].ItemIds);
+			Assert.IsNotNull(inventory[0].EntityIds);
 			Assert.IsNotNull(inventory[0].Entities);
 		}
 
@@ -71,9 +70,9 @@
 				this.entity,
 				"inventory");
 			Console.WriteLine(result);
-			ContainerModel[] inventory = JsonConvert.DeserializeObject<ContainerModel[]>(result);
+			EntityModel[] inventory = JsonConvert.DeserializeObject<EntityModel[]>(result);
 			Assert.AreEqual(inventory.Length, 2);
-			Assert.IsNull(inventory[0].ItemIds);
+			Assert.IsNull(inventory[0].EntityIds);
 			Assert.IsNull(inventory[0].Entities);
 		}
 
@@ -84,10 +83,10 @@
 			string result = this.interpreter.Interpret(
 				this.entity,
 				"items");
-			ContainerModel[] inventory = JsonConvert.DeserializeObject<ContainerModel[]>(result);
+			EntityModel[] inventory = JsonConvert.DeserializeObject<EntityModel[]>(result);
 			Console.WriteLine(result);
 			Assert.AreEqual(inventory.Length, 2);
-			Assert.IsNull(inventory[0].ItemIds);
+			Assert.IsNull(inventory[0].EntityIds);
 			Assert.IsNull(inventory[0].Entities);
 		}
 
@@ -99,9 +98,9 @@
 				this.entity,
 				"storage");
 			Console.WriteLine(result);
-			ContainerModel[] inventory = JsonConvert.DeserializeObject<ContainerModel[]>(result);
+			EntityModel[] inventory = JsonConvert.DeserializeObject<EntityModel[]>(result);
 			Assert.AreEqual(inventory.Length, 2);
-			Assert.IsNull(inventory[0].ItemIds);
+			Assert.IsNull(inventory[0].EntityIds);
 			Assert.IsNull(inventory[0].Entities);
 		}
 
@@ -128,12 +127,13 @@
 
 			Entity bag = this.world.CreateEntity();
 			ContainerComponent containerComponentComponent = new ContainerComponent(3);
-			PrototypeComponent bagPrototype = new PrototypeComponent(
+			EntityDataComponent bagEntityData = new EntityDataComponent(
 				prototypes.Count,
 				"Bag",
+				"Just a bag.",
 				null,
 				EntityType.Container);
-			bag.AddComponent(bagPrototype);
+			bag.AddComponent(bagEntityData);
 			bag.AddComponent(containerComponentComponent);
 			containerComponentComponent.AddEntity(itemStack);
 

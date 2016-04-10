@@ -1,30 +1,33 @@
 ﻿namespace Reverie.Maps
 {
 	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
 	using PrimitiveEngine;
-	using PrimitiveEngine.Components;
 
 
-	public sealed class MapNodeComponent : Component
+	public sealed class MapNode
 	{
 		#region Fields
+		private readonly EntityWorld entityWorld;
 		private Room room;
-		private RoomExits exits;
+		private IList<RoomExit> exits;
 		private readonly List<long?> entityIds;
 		#endregion
 
 
 		#region Constructors
-		public MapNodeComponent(Room room, RoomExits exits)
+		public MapNode(EntityWorld entityWorld, Room room, IList<RoomExit> exits)
 		{
+			this.entityWorld = entityWorld;
 			this.room = room;
 			this.exits = exits;
 			this.entityIds = new List<long?>();
 		}
 
 
-		public MapNodeComponent(Room room, RoomExits exits, List<long?> entityIds)
+		public MapNode(EntityWorld entityWorld, Room room, IList<RoomExit> exits, List<long?> entityIds)
 		{
+			this.entityWorld = entityWorld;
 			this.room = room;
 			this.exits = exits;
 			this.entityIds = entityIds;
@@ -39,9 +42,15 @@
 		}
 
 
-		public RoomExits Exits
+		public EntityWorld EntityWorld
 		{
-			get { return this.exits; }
+			get { return this.entityWorld; }
+		}
+
+
+		public IReadOnlyCollection<RoomExit> Exits
+		{
+			get { return new ReadOnlyCollection<RoomExit>(this.exits); }
 		}
 
 
@@ -50,6 +59,20 @@
 			get { return this.room; }
 		}
 		#endregion
+
+
+		public bool AddEntity(Entity entity)
+		{
+			this.entityIds.Add(entity.UniqueId);
+			return true;
+		}
+
+
+		public bool AddEntity(long entityId)
+		{
+			this.entityIds.Add(entityId);
+			return true;
+		}
 
 
 		/// <summary>

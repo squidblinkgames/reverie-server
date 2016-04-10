@@ -3,7 +3,7 @@ namespace CommandParser.Commands
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
-	using Reverie.Items.Components;
+	using Reverie.Components;
 	using Reverie.Utilities;
 
 
@@ -48,7 +48,7 @@ namespace CommandParser.Commands
 			if (entityTokens.Count() < 2)
 			{
 				this.Result = "Must specify at least two items.";
-				foreach(var token in entityTokens)
+				foreach(Expression token in entityTokens)
 					Console.WriteLine("Token: " + token.Result);
 				return;
 			}

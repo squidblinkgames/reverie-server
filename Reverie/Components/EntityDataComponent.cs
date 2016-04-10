@@ -1,30 +1,33 @@
-namespace Reverie.Entities
+namespace Reverie.Components
 {
 	using System.Collections.Generic;
 	using PrimitiveEngine;
 	using PrimitiveEngine.Components;
-	using Reverie.State;
+	using Reverie.Cache;
 
 
-	public class PrototypeComponent : Component
+	public class EntityDataComponent : Component
 	{
 		#region Fields
 		private readonly long id;
 		private readonly string name;
+		private readonly string description;
 		private readonly Dictionary<string, DynamicValue> properties;
 		private readonly long? parentPrototypeId;
 		#endregion
 
 
 		#region Constructors
-		public PrototypeComponent(
+		public EntityDataComponent(
 			long id,
 			string name,
+			string description,
 			Dictionary<string, DynamicValue> properties,
 			long? parentPrototypeId = null)
 		{
 			this.id = id;
 			this.name = name;
+			this.description = description;
 			this.properties = properties;
 			this.parentPrototypeId = parentPrototypeId;
 		}
@@ -32,6 +35,12 @@ namespace Reverie.Entities
 
 
 		#region Properties
+		public string Description
+		{
+			get { return this.description; }
+		}
+
+
 		public long Id
 		{
 			get { return this.id; }
@@ -57,24 +66,27 @@ namespace Reverie.Entities
 		#endregion
 
 
+		#region Helper Methods
+
 		//TODO
 		private void MergeAllParentProperties(
 			EntityWorld world,
-			PrototypeComponent parentPrototype)
+			EntityDataComponent parentEntityData)
 		{
-			foreach (KeyValuePair<string, DynamicValue> parentProperty in parentPrototype.properties)
+			foreach (KeyValuePair<string, DynamicValue> parentProperty in parentEntityData.properties)
 			{
 				if (this.properties.ContainsKey(parentProperty.Key))
 					continue;
 				this.properties.Add(parentProperty.Key, parentProperty.Value);
 			}
 
-			if (parentPrototype.parentPrototypeId != null)
+			if (parentEntityData.parentPrototypeId != null)
 			{
-				parentPrototype =
-					WorldCache.GetCache(world).Prototypes[parentPrototype.parentPrototypeId];
-				MergeAllParentProperties(world, parentPrototype);
+				parentEntityData =
+					WorldCache.GetCache(world).Prototypes[parentEntityData.parentPrototypeId];
+				MergeAllParentProperties(world, parentEntityData);
 			}
 		}
+		#endregion
 	}
 }

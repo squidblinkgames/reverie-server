@@ -1,8 +1,8 @@
 ﻿namespace CommandParser.Commands
 {
 	using System.Collections.Generic;
-	using Reverie.Items;
-	using Reverie.Items.Models;
+	using Reverie.Models;
+	using Reverie.Utilities;
 
 
 	public class InventoryCommand : CommandExpression
@@ -34,7 +34,7 @@
 		public override void ProcessExpression(ExpressionTokens expressionTokens)
 		{
 			
-			List<ContainerModel> inventory;
+			List<EntityModel> inventory;
 
 			Expression nextToken = expressionTokens.GetRightToken();
 			if (nextToken != null

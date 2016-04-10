@@ -1,7 +1,7 @@
 ﻿namespace Reverie.Server
 {
 	using PrimitiveEngine;
-	using Reverie.Entities;
+	using Reverie.Components;
 	using vtortola.WebSockets;
 
 

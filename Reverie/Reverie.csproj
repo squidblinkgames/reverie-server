@@ -67,7 +67,7 @@
     <Compile Include="Maps\Room.cs" />
     <Compile Include="Models\EntityModel.cs" />
     <Compile Include="Cache\MapCache.cs" />
-    <Compile Include="Cache\PrototypeCache.cs" />
+    <Compile Include="Cache\EntityDataCache.cs" />
     <Compile Include="Cache\ReverieState.cs" />
     <Compile Include="Cache\WorldCache.cs" />
     <Compile Include="Debug\MockWorld.cs" />

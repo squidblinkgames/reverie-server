@@ -29,7 +29,7 @@
 		}
 
 
-		public override string Result
+		public override object Result
 		{
 			get { return this.value; }
 			protected set { }

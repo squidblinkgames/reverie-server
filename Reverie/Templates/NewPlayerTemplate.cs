@@ -1,5 +1,6 @@
 ﻿namespace Reverie.Templates
 {
+	using System;
 	using System.Collections.Generic;
 	using PrimitiveEngine;
 	using Reverie.Components;
@@ -25,12 +26,24 @@
 			AddNewPlayerInventory(entity);
 			AddCreatureComponent(entity);
 			AddLocationComponent(entity);
+			AddEntityDataComponent(entity);
 
 			return entity;
 		}
 
 
 		#region Helper Methods
+		private void AddEntityDataComponent(Entity entity)
+		{
+			EntityDataComponent entityDataComponent = new EntityDataComponent(
+				Guid.NewGuid(),
+				"Another Player",
+				"You see another player over there.",
+				null);
+			entity.AddComponent(entityDataComponent);
+		}
+		
+		
 		private void AddLocationComponent(Entity entity)
 		{
 			LocationComponent locationComponent = new LocationComponent(
@@ -73,7 +86,7 @@
 		private void AddNewPlayerInventory(Entity entity)
 		{
 			EntityWorld gameWorld = entity.EntityWorld;
-			PrototypeCache prototypes = WorldCache.GetCache(gameWorld).Prototypes;
+			EntityDataCache entityDatas = WorldCache.GetCache(gameWorld).EntityDatas;
 
 			ContainerComponent inventory = new ContainerComponent(10);
 			
@@ -81,20 +94,20 @@
 
 			Entity itemStack = gameWorld.CreateEntity();
 			itemStack.AddComponent(new StackComponent(3, 3));
-			itemStack.AddComponent(prototypes[EntityType.Consumable]);
+			itemStack.AddComponent(entityDatas[EntityType.Consumable]);
 
 			Entity itemSingle = gameWorld.CreateEntity();
-			itemSingle.AddComponent(prototypes[EntityType.Consumable]);
+			itemSingle.AddComponent(entityDatas[EntityType.Consumable]);
 
 			Entity bag = gameWorld.CreateEntity();
 			ContainerComponent bagContainerComponent = new ContainerComponent(3);
 			EntityDataComponent bagEntityData = new EntityDataComponent(
-				prototypes.Count,
+				Guid.NewGuid(),
 				"Bag",
 				"Just some bag.",
 				null,
 				EntityType.Container);
-			prototypes.Add(bagEntityData);
+			entityDatas.Add(bagEntityData);
 			bag.AddComponent(bagEntityData);
 			bag.AddComponent(bagContainerComponent);
 			bagContainerComponent.AddEntity(itemStack);
@@ -102,12 +115,12 @@
 			Entity backpack = gameWorld.CreateEntity();
 			ContainerComponent backpackContainerComponent = new ContainerComponent(3);
 			EntityDataComponent backpackEntityData = new EntityDataComponent(
-				prototypes.Count,
+				Guid.NewGuid(),
 				"Backpack",
 				"A weathered old backpack.",
 				null,
 				EntityType.Container);
-			prototypes.Add(backpackEntityData);
+			entityDatas.Add(backpackEntityData);
 			backpack.AddComponent(backpackEntityData);
 			backpack.AddComponent(backpackContainerComponent);
 

@@ -1,5 +1,6 @@
 ﻿namespace Reverie.Models
 {
+	using System;
 	using System.Collections.Generic;
 	using PrimitiveEngine;
 	using Reverie.Components;
@@ -26,11 +27,9 @@
 		public int? CurrentHealth { get; set; }
 		public int? CurrentMemory { get; set; }
 		public int? CurrentStorage { get; set; }
-		public long DataId { get; set; }
 		public string Description { get; set; }
 		public List<EntityModel> Entities { get; set; }
-		public List<long> EntityIds { get; set; }
-		public long Id { get; set; }
+		public Guid Id { get; set; }
 		public int? MaxHealth { get; set; }
 		public int? MaxMemory { get; set; }
 		public int? MaxStorage { get; set; }
@@ -48,7 +47,6 @@
 				return;
 
 			this.Entities = Inventory.GetContainerContents(entity, Inventory.LoadOptions.Recursive);
-			this.EntityIds = new List<long>(container.ChildEntityIds);
 		}
 
 
@@ -73,7 +71,6 @@
 			if (entityData == null)
 				return;
 
-			this.DataId = entityData.Id;
 			this.Name = entityData.Name;
 			this.Description = entityData.Description;
 			this.Type = "TODO: FILL ME IN";

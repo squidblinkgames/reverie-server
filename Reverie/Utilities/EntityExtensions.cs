@@ -1,5 +1,6 @@
 ﻿namespace Reverie.Utilities
 {
+	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 	using PrimitiveEngine;
@@ -22,15 +23,15 @@
 
 
 		public static IReadOnlyCollection<Entity> GetEntitiesFromWorld(
-			this IEnumerable<long?> entityIds,
+			this IEnumerable<Guid> entityIds,
 			EntityWorld entityWorld)
 		{
 			List<Entity> entities = new List<Entity>();
-			foreach (long? entityId in entityIds)
+			foreach (Guid entityId in entityIds)
 			{
-				if (entityId == null)
+				if (entityId == default(Guid))
 					continue;
-				Entity entity = entityWorld.GetEntityByUniqueId((long)entityId);
+				Entity entity = entityWorld.GetEntityByUniqueId(entityId);
 				if (entity != null)
 					entities.Add(entity);
 			}
@@ -72,9 +73,9 @@
 		}
 
 
-		public static IReadOnlyCollection<long> GetUniqueIds(this IEnumerable<Entity> entities)
+		public static IReadOnlyCollection<Guid> GetUniqueIds(this IEnumerable<Entity> entities)
 		{
-			List<long> entityIds = new List<long>();
+			List<Guid> entityIds = new List<Guid>();
 			foreach (Entity entity in entities)
 			{
 				entityIds.Add(entity.UniqueId);

@@ -1,5 +1,6 @@
 ﻿namespace Reverie
 {
+	using System;
 	using System.Collections.Generic;
 
 
@@ -25,13 +26,13 @@
 
 
 		#region Fields
-		private readonly long value;
+		private readonly int value;
 		private readonly string name;
 		#endregion
 
 
 		#region Constructors
-		public EntityType(long value, string name)
+		public EntityType(int value, string name)
 		{
 			this.value = value;
 			this.name = name;
@@ -46,7 +47,7 @@
 		}
 
 
-		public long Value
+		public int Value
 		{
 			get { return this.value; }
 		}
@@ -54,9 +55,9 @@
 
 
 		#region Operators
-		public static implicit operator long(EntityType entityType)
+		public static implicit operator Guid(EntityType entityType)
 		{
-			return entityType.value;
+			return new Guid(entityType.value, 0, 0, new byte[8]);
 		}
 
 

@@ -38,7 +38,7 @@
 		}
 
 
-		public string Interpret(Entity invokingEntity, string command)
+		public object Interpret(Entity invokingEntity, string command)
 		{
 			ExpressionTokens expressionTokens = new ExpressionTokens(this, invokingEntity, command);
 			return expressionTokens.Interpret();

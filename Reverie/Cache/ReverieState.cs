@@ -5,14 +5,14 @@
 		#region Constructors
 		public ReverieState()
 		{
-			this.Prototypes = new PrototypeCache();
+			this.EntityDatas = new EntityDataCache();
 			this.Maps = new MapCache();
 		}
 		#endregion
 
 
 		#region Properties
-		public PrototypeCache Prototypes { get; set; }
+		public EntityDataCache EntityDatas { get; set; }
 		public MapCache Maps { get; set; }
 		#endregion
 	}

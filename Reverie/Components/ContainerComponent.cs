@@ -1,5 +1,6 @@
 ﻿namespace Reverie.Components
 {
+	using System;
 	using System.Collections.Generic;
 	using Newtonsoft.Json;
 	using PrimitiveEngine;
@@ -11,12 +12,12 @@
 	{
 		#region Fields
 		private int? capacity;
-		private List<long> childEntityIds;
+		private List<Guid> childEntityIds;
 		#endregion
 
 
 		#region Constructors
-		public ContainerComponent(int? capacity = null, List<long> childEntityIds = null)
+		public ContainerComponent(int? capacity = null, List<Guid> childEntityIds = null)
 		{
 			this.capacity = capacity;
 			this.childEntityIds = childEntityIds;
@@ -51,7 +52,7 @@
 		/// The child entity ids.
 		/// </value>
 		[JsonProperty]
-		public IReadOnlyCollection<long> ChildEntityIds
+		public IReadOnlyCollection<Guid> ChildEntityIds
 		{
 			get
 			{
@@ -74,7 +75,7 @@
 				return 0;
 			
 			if (this.childEntityIds == null)
-				this.childEntityIds = new List<long>();
+				this.childEntityIds = new List<Guid>();
 			
 			// TODO: Check if capacity is breached.
 			// TODO: Don't allow child containers to add containers they're inside. Just compare child id's.

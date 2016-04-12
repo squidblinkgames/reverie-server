@@ -7,21 +7,21 @@
 	using Reverie.Components;
 
 
-	public class PrototypeCache : IEnumerable<EntityDataComponent>
+	public class EntityDataCache : IEnumerable<EntityDataComponent>
 	{
 		#region Fields
-		private readonly Dictionary<long?, EntityDataComponent> prototypes;
+		private readonly Dictionary<Guid, EntityDataComponent> prototypes;
 		#endregion
 
 
 		#region Constructors
-		public PrototypeCache()
+		public EntityDataCache()
 		{
-			this.prototypes = new Dictionary<long?, EntityDataComponent>();
+			this.prototypes = new Dictionary<Guid, EntityDataComponent>();
 		}
 
 
-		public PrototypeCache(Dictionary<long?, EntityDataComponent> prototypes)
+		public EntityDataCache(Dictionary<Guid, EntityDataComponent> prototypes)
 		{
 			this.prototypes = prototypes;
 		}
@@ -37,13 +37,13 @@
 
 
 		#region Indexers
-		public EntityDataComponent this[long? id]
+		public EntityDataComponent this[Guid id]
 		{
 			get
 			{
 				if (this.prototypes.ContainsKey(id))
 					return this.prototypes[id];
-				return null;
+				throw new KeyNotFoundException("Prototype not found for key " + id);
 			}
 		}
 		#endregion
@@ -77,7 +77,7 @@
 			if (entityData.ParentPrototypeId == null)
 				return entityData;
 
-			long parentId = (int)entityData.ParentPrototypeId;
+			Guid parentId = entityData.ParentPrototypeId;
 			if (this.prototypes.ContainsKey(parentId))
 				return GetBasePrototype(this.prototypes[parentId]);
 
@@ -97,7 +97,7 @@
 		}
 
 
-		public EntityDataComponent Remove(long id)
+		public EntityDataComponent Remove(Guid id)
 		{
 			if (!this.prototypes.ContainsKey(id))
 				return null;

@@ -28,7 +28,7 @@ namespace CommandParser.Commands
 
 
 		public override bool Interpretted { get; protected set; }
-		public override string Result { get; protected set; }
+		public override object Result { get; protected set; }
 		#endregion
 
 

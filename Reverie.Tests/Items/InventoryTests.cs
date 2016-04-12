@@ -32,7 +32,6 @@
 				Inventory.LoadOptions.Recursive);
 			Console.WriteLine(inventory.ToPrettyJson());
 			Assert.AreEqual(inventory.Count, 2);
-			Assert.IsNotNull(inventory[0].EntityIds);
 			Assert.IsNotNull(inventory[0].Entities);
 		}
 
@@ -44,7 +43,6 @@
 				Inventory.GetContainerContents(this.entity);
 			Console.WriteLine(inventory.ToPrettyJson());
 			Assert.AreEqual(inventory.Count, 2);
-			Assert.IsNull(inventory[0].EntityIds);
 			Assert.IsNull(inventory[0].Entities);
 		}
 
@@ -54,11 +52,10 @@
 		{
 			string result = this.interpreter.Interpret(
 				this.entity,
-				"inventory all");
+				"inventory all").ToPrettyJson();
 			Console.WriteLine(result);
 			EntityModel[] inventory = JsonConvert.DeserializeObject<EntityModel[]>(result);
 			Assert.AreEqual(inventory.Length, 2);
-			Assert.IsNotNull(inventory[0].EntityIds);
 			Assert.IsNotNull(inventory[0].Entities);
 		}
 
@@ -68,11 +65,10 @@
 		{
 			string result = this.interpreter.Interpret(
 				this.entity,
-				"inventory");
+				"inventory").ToPrettyJson();
 			Console.WriteLine(result);
 			EntityModel[] inventory = JsonConvert.DeserializeObject<EntityModel[]>(result);
 			Assert.AreEqual(inventory.Length, 2);
-			Assert.IsNull(inventory[0].EntityIds);
 			Assert.IsNull(inventory[0].Entities);
 		}
 
@@ -82,11 +78,10 @@
 		{
 			string result = this.interpreter.Interpret(
 				this.entity,
-				"items");
+				"items").ToPrettyJson();
 			EntityModel[] inventory = JsonConvert.DeserializeObject<EntityModel[]>(result);
 			Console.WriteLine(result);
 			Assert.AreEqual(inventory.Length, 2);
-			Assert.IsNull(inventory[0].EntityIds);
 			Assert.IsNull(inventory[0].Entities);
 		}
 
@@ -96,11 +91,10 @@
 		{
 			string result = this.interpreter.Interpret(
 				this.entity,
-				"storage");
+				"storage").ToPrettyJson();
 			Console.WriteLine(result);
 			EntityModel[] inventory = JsonConvert.DeserializeObject<EntityModel[]>(result);
 			Assert.AreEqual(inventory.Length, 2);
-			Assert.IsNull(inventory[0].EntityIds);
 			Assert.IsNull(inventory[0].Entities);
 		}
 
@@ -116,19 +110,19 @@
 			ContainerComponent inventory = new ContainerComponent(10);
 			this.entity.AddComponent(inventory);
 
-			PrototypeCache prototypes = WorldCache.GetCache(this.world).Prototypes;
+			EntityDataCache entityDatas = WorldCache.GetCache(this.world).EntityDatas;
 
 			Entity itemStack = this.world.CreateEntity();
 			itemStack.AddComponent(new StackComponent(3, 3));
-			itemStack.AddComponent(prototypes[EntityType.Consumable]);
+			itemStack.AddComponent(entityDatas[EntityType.Consumable]);
 
 			Entity itemSingle = this.world.CreateEntity();
-			itemSingle.AddComponent(prototypes[EntityType.Consumable]);
+			itemSingle.AddComponent(entityDatas[EntityType.Consumable]);
 
 			Entity bag = this.world.CreateEntity();
 			ContainerComponent containerComponentComponent = new ContainerComponent(3);
 			EntityDataComponent bagEntityData = new EntityDataComponent(
-				prototypes.Count,
+				Guid.NewGuid(),
 				"Bag",
 				"Just a bag.",
 				null,

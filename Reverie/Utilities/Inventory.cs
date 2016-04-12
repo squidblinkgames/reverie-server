@@ -1,5 +1,6 @@
 ﻿namespace Reverie.Utilities
 {
+	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 	using PrimitiveEngine;
@@ -30,10 +31,9 @@
 			params LoadOptions[] options)
 		{
 			List<EntityModel> inventory = new List<EntityModel>();
-			bool recursive = options.Contains(LoadOptions.Recursive);
-
+			
 			ContainerComponent containerComponent = entity.GetComponent<ContainerComponent>();
-			foreach (long id in containerComponent.ChildEntityIds)
+			foreach (Guid id in containerComponent.ChildEntityIds)
 			{
 				Entity item = entity.GetEntityByUniqueId(id);
 				EntityModel entityData = GetItemModel(item, options);
@@ -55,7 +55,7 @@
 				return inventoryItems;
 
 			EntityWorld world = entity.EntityWorld;
-			foreach (long entityId in inventory.ChildEntityIds)
+			foreach (Guid entityId in inventory.ChildEntityIds)
 			{
 				inventoryItems.Add(world.GetEntityByUniqueId(entityId));
 			}
@@ -85,14 +85,13 @@
 			if (containerComponent != null
 				&& containerComponent.ChildEntityIds != null)
 			{
-				entityModel.EntityIds = new List<long>();
+				
 				entityModel.Entities = new List<EntityModel>();
 
-				foreach (long childId in containerComponent.ChildEntityIds)
+				foreach (Guid childId in containerComponent.ChildEntityIds)
 				{
 					Entity childEntity = world.GetEntityByUniqueId(childId);
 					EntityModel childEntityModel = GetItemModel(childEntity, options);
-					entityModel.EntityIds.Add(childEntityModel.Id);
 					entityModel.Entities.Add(childEntityModel);
 				}
 			}
@@ -110,7 +109,7 @@
 			bool toLowercase = options.Contains(LoadOptions.LowercaseNames);
 
 			EntityWorld world = itemEntity.EntityWorld;
-			PrototypeCache prototypes = WorldCache.GetCache(world).Prototypes;
+			EntityDataCache entityDatas = WorldCache.GetCache(world).EntityDatas;
 			EntityModel entityModel = new EntityModel();
 
 			// Get basic item details.
@@ -119,8 +118,7 @@
 			else
 				entityModel.Name = entityData.Name;
 			entityModel.Id = itemEntity.UniqueId;
-			entityModel.DataId = entityData.Id;
-			entityModel.Type = prototypes.GetBasePrototype(itemEntity).Name;
+			// entityModel.Type = entityDatas.GetBasePrototype(itemEntity).Name;
 
 			// Get quantity.
 			StackComponent stack = itemEntity.GetComponent<StackComponent>();

@@ -45,7 +45,7 @@
 		}
 
 
-		public override string Result { get; protected set; }
+		public override object Result { get; protected set; }
 		#endregion
 	}
 }

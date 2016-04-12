@@ -21,7 +21,7 @@
 
 
 		public override bool Interpretted { get; protected set; }
-		public override string Result { get; protected set; }
+		public override object Result { get; protected set; }
 		#endregion
 
 
@@ -49,7 +49,7 @@
 				inventory = Inventory.GetContainerContents(expressionTokens.InvokingEntity);
 
 			this.Interpretted = true;
-			this.Result = inventory.ToPrettyJson();
+			this.Result = inventory;
 		}
 	}
 }

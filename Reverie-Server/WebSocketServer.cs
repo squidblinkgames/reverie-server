@@ -101,12 +101,15 @@
 			{
 				try
 				{
-					WebSocket websocket = await this.listener
-													.AcceptWebSocketAsync(CancellationToken.None)
-													.ConfigureAwait(false);
+					while (true)
+					{
+						WebSocket websocket = await this.listener
+														.AcceptWebSocketAsync(CancellationToken.None)
+														.ConfigureAwait(false);
 
-					if (websocket != null)
-						Task.Run(() => HandleMessage(websocket));
+						if (websocket != null)
+							Task.Run(() => HandleMessage(websocket));	
+					}
 				}
 
 				catch (Exception ex)

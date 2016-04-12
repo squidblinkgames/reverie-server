@@ -15,7 +15,7 @@
 		private Entity invokingEntity;
 		private List<Expression> tokens;
 		private int currentIndex;
-		private string result;
+		private object result;
 		#endregion
 
 
@@ -65,7 +65,7 @@
 		}
 
 
-		public string Result
+		public object Result
 		{
 			get { return this.result; }
 			set { this.result = value; }
@@ -105,7 +105,7 @@
 		}
 
 
-		public string Interpret()
+		public object Interpret()
 		{
 			this.result = string.Empty;
 			this.currentIndex = 0;
@@ -136,9 +136,13 @@
 
 		private bool AddRoomEntityToken(string expression)
 		{
+			if (!this.invokingEntity.HasComponent<LocationComponent>())
+				return false;
+			
 			IReadOnlyCollection<Entity> roomEntities = this.invokingEntity
 				.GetMapNode()
 				.GetEntities();
+			
 			Entity roomEntity = roomEntities.FindByName(expression);
 			if (roomEntity != null)
 			{

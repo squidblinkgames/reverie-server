@@ -1,5 +1,6 @@
 namespace Reverie.Components
 {
+	using System;
 	using System.Collections.Generic;
 	using PrimitiveEngine;
 	using PrimitiveEngine.Components;
@@ -9,21 +10,21 @@ namespace Reverie.Components
 	public class EntityDataComponent : Component
 	{
 		#region Fields
-		private readonly long id;
+		private readonly Guid id;
 		private readonly string name;
 		private readonly string description;
 		private readonly Dictionary<string, DynamicValue> properties;
-		private readonly long? parentPrototypeId;
+		private readonly Guid parentPrototypeId;
 		#endregion
 
 
 		#region Constructors
 		public EntityDataComponent(
-			long id,
+			Guid id,
 			string name,
 			string description,
 			Dictionary<string, DynamicValue> properties,
-			long? parentPrototypeId = null)
+			Guid parentPrototypeId = default(Guid))
 		{
 			this.id = id;
 			this.name = name;
@@ -41,7 +42,7 @@ namespace Reverie.Components
 		}
 
 
-		public long Id
+		public Guid Id
 		{
 			get { return this.id; }
 		}
@@ -53,7 +54,7 @@ namespace Reverie.Components
 		}
 
 
-		public long? ParentPrototypeId
+		public Guid ParentPrototypeId
 		{
 			get { return this.parentPrototypeId; }
 		}
@@ -83,7 +84,7 @@ namespace Reverie.Components
 			if (parentEntityData.parentPrototypeId != null)
 			{
 				parentEntityData =
-					WorldCache.GetCache(world).Prototypes[parentEntityData.parentPrototypeId];
+					WorldCache.GetCache(world).EntityDatas[parentEntityData.parentPrototypeId];
 				MergeAllParentProperties(world, parentEntityData);
 			}
 		}

@@ -68,7 +68,7 @@
 
 			foreach (Entity item in items)
 			{
-				EntityDataComponent itemData = item.GetComponent<EntityDataComponent>();
+				EntityData itemData = item.GetComponent<EntityData>();
 				description.AppendLine(
 					"- There is a [" + itemData.Name + "]" +
 					"(/items/" + item.UniqueId + ") here.");
@@ -76,7 +76,7 @@
 
 			foreach (Entity character in characters)
 			{
-				EntityDataComponent characterData = character.GetComponent<EntityDataComponent>();
+				EntityData characterData = character.GetComponent<EntityData>();
 				description.AppendLine(
 					"- [" + characterData.Name + "]" +
 					"(/characters/" + character.UniqueId + ") is here.");
@@ -105,26 +105,33 @@
 
 			this.characters =
 				from entity in roomEntities
-				where entity.HasComponent<CreatureComponent>()
+				where entity.HasComponent<Creature>()
 				select entity;
 			foreach (Entity character in this.characters)
 			{
-				EntityModel entityModel = new EntityModel(character);
+				EntityModel entityModel = new EntityModel(character)
+					.SaturateComponentDetails()
+					.SaturateCreatureDetails();
 				entityModels.Add(entityModel);
 			}
 
 			this.items =
 				from entity in roomEntities
-				where !entity.HasComponent<CreatureComponent>()
+				where !entity.HasComponent<Creature>()
 				select entity;
 			foreach (Entity item in this.items)
 			{
-				EntityModel entityModel = new EntityModel(item);
+				EntityModel entityModel = new EntityModel(item)
+					.SaturateComponentDetails()
+					.SaturateStackDetails();
 				entityModels.Add(entityModel);
 			}
 
 			if (player != null)
-				entityModels.Add(new EntityModel(player));
+				entityModels.Add(new EntityModel(player)
+					.SaturateComponentDetails()
+					.SaturateCreatureDetails()
+					.SaturateContainerDetails(recurse: true));
 
 			this.entities = entityModels;
 		}

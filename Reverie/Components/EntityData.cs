@@ -7,7 +7,7 @@ namespace Reverie.Components
 	using Reverie.Cache;
 
 
-	public class EntityDataComponent : Component
+	public class EntityData : Component
 	{
 		#region Fields
 		private readonly Guid id;
@@ -19,7 +19,7 @@ namespace Reverie.Components
 
 
 		#region Constructors
-		public EntityDataComponent(
+		public EntityData(
 			Guid id,
 			string name,
 			string description,
@@ -72,7 +72,7 @@ namespace Reverie.Components
 		//TODO
 		private void MergeAllParentProperties(
 			EntityWorld world,
-			EntityDataComponent parentEntityData)
+			EntityData parentEntityData)
 		{
 			foreach (KeyValuePair<string, DynamicValue> parentProperty in parentEntityData.properties)
 			{

@@ -15,13 +15,13 @@
 
 
 		#region Fields
-		private Dictionary<int, EntityDataComponent> prototypes;
+		private Dictionary<int, EntityData> prototypes;
 		#endregion
 
 
 		public Entity BuildEntity(Entity entity, EntityWorld entityWorld, params object[] args)
 		{
-			entity.AddComponent(new PlayerComponent());
+			entity.AddComponent(new Player());
 
 			AddNewPlayerInventory(entity);
 			AddCreatureComponent(entity);
@@ -35,52 +35,52 @@
 		#region Helper Methods
 		private void AddEntityDataComponent(Entity entity)
 		{
-			EntityDataComponent entityDataComponent = new EntityDataComponent(
+			EntityData entityData = new EntityData(
 				Guid.NewGuid(),
 				"Another Player",
 				"You see another player over there.",
 				null);
-			entity.AddComponent(entityDataComponent);
+			entity.AddComponent(entityData);
 		}
 		
 		
 		private void AddLocationComponent(Entity entity)
 		{
-			LocationComponent locationComponent = new LocationComponent(
+			Location location = new Location(
 				MockWorld.StartMapName,
 				0, 0, 0);
-			entity.AddComponent(locationComponent);
+			entity.AddComponent(location);
 		}
 
 
 		private void AddCreatureComponent(Entity entity)
 		{
-			CreatureComponent creatureComponent = new CreatureComponent();
-			creatureComponent.AddPart(CreatureComponent.Head);
-			creatureComponent.AddPart(CreatureComponent.Neck);
-			creatureComponent.AddPart(CreatureComponent.Chest);
-			creatureComponent.AddPart(CreatureComponent.Shoulder);
-			creatureComponent.AddPart(CreatureComponent.Shoulder);
-			creatureComponent.AddPart(CreatureComponent.Arm);
-			creatureComponent.AddPart(CreatureComponent.Arm);
-			creatureComponent.AddPart(CreatureComponent.Hand);
-			creatureComponent.AddPart(CreatureComponent.Hand);
-			creatureComponent.AddPart(CreatureComponent.Finger);
-			creatureComponent.AddPart(CreatureComponent.Finger);
-			creatureComponent.AddPart(CreatureComponent.Waist);
-			creatureComponent.AddPart(CreatureComponent.Leg);
-			creatureComponent.AddPart(CreatureComponent.Leg);
-			creatureComponent.AddPart(CreatureComponent.Foot);
-			creatureComponent.AddPart(CreatureComponent.Foot);
+			Creature creature = new Creature();
+			creature.AddPart(Creature.Head);
+			creature.AddPart(Creature.Neck);
+			creature.AddPart(Creature.Chest);
+			creature.AddPart(Creature.Shoulder);
+			creature.AddPart(Creature.Shoulder);
+			creature.AddPart(Creature.Arm);
+			creature.AddPart(Creature.Arm);
+			creature.AddPart(Creature.Hand);
+			creature.AddPart(Creature.Hand);
+			creature.AddPart(Creature.Finger);
+			creature.AddPart(Creature.Finger);
+			creature.AddPart(Creature.Waist);
+			creature.AddPart(Creature.Leg);
+			creature.AddPart(Creature.Leg);
+			creature.AddPart(Creature.Foot);
+			creature.AddPart(Creature.Foot);
 
-			creatureComponent.MaxHealth = 100;
-			creatureComponent.MaxMemory = 100;
-			creatureComponent.MaxStorage = 100;
-			creatureComponent.CurrentHealth = 100;
-			creatureComponent.CurrentMemory = 100;
-			creatureComponent.CurrentStorage = 100;
+			creature.MaxHealth = 100;
+			creature.MaxMemory = 100;
+			creature.MaxStorage = 100;
+			creature.CurrentHealth = 100;
+			creature.CurrentMemory = 100;
+			creature.CurrentStorage = 100;
 
-			entity.AddComponent(creatureComponent);
+			entity.AddComponent(creature);
 		}
 		
 		private void AddNewPlayerInventory(Entity entity)
@@ -88,20 +88,20 @@
 			EntityWorld gameWorld = entity.EntityWorld;
 			EntityDataCache entityDatas = WorldCache.GetCache(gameWorld).EntityDatas;
 
-			ContainerComponent inventory = new ContainerComponent(10);
+			Container inventory = new Container(10);
 			
 			entity.AddComponent(inventory);
 
 			Entity itemStack = gameWorld.CreateEntity();
-			itemStack.AddComponent(new StackComponent(3, 3));
+			itemStack.AddComponent(new EntityStack(3, 3));
 			itemStack.AddComponent(entityDatas[EntityType.Consumable]);
 
 			Entity itemSingle = gameWorld.CreateEntity();
 			itemSingle.AddComponent(entityDatas[EntityType.Consumable]);
 
 			Entity bag = gameWorld.CreateEntity();
-			ContainerComponent bagContainerComponent = new ContainerComponent(3);
-			EntityDataComponent bagEntityData = new EntityDataComponent(
+			Container bagContainer = new Container(3);
+			EntityData bagEntityData = new EntityData(
 				Guid.NewGuid(),
 				"Bag",
 				"Just some bag.",
@@ -109,12 +109,12 @@
 				EntityType.Container);
 			entityDatas.Add(bagEntityData);
 			bag.AddComponent(bagEntityData);
-			bag.AddComponent(bagContainerComponent);
-			bagContainerComponent.AddEntity(itemStack);
+			bag.AddComponent(bagContainer);
+			bagContainer.AddEntity(itemStack);
 
 			Entity backpack = gameWorld.CreateEntity();
-			ContainerComponent backpackContainerComponent = new ContainerComponent(3);
-			EntityDataComponent backpackEntityData = new EntityDataComponent(
+			Container backpackContainer = new Container(3);
+			EntityData backpackEntityData = new EntityData(
 				Guid.NewGuid(),
 				"Backpack",
 				"A weathered old backpack.",
@@ -122,7 +122,7 @@
 				EntityType.Container);
 			entityDatas.Add(backpackEntityData);
 			backpack.AddComponent(backpackEntityData);
-			backpack.AddComponent(backpackContainerComponent);
+			backpack.AddComponent(backpackContainer);
 
 			inventory.AddEntity(bag);
 			inventory.AddEntity(backpack);

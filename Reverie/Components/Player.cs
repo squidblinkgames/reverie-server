@@ -4,7 +4,7 @@
 	using PrimitiveEngine.Components;
 
 
-	public class PlayerComponent : Component
+	public class Player : Component
 	{
 		public event Action<string> Updated;
 

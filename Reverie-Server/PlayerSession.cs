@@ -19,9 +19,9 @@
 			this.webSocket = webSocket;
 			this.playerEntity = playerEntity;
 
-			PlayerComponent playerComponent = this.playerEntity.GetComponent<PlayerComponent>();
-			if (playerComponent != null)
-				playerComponent.Updated += OnPlayerEntityUpdated;
+			Player player = this.playerEntity.GetComponent<Player>();
+			if (player != null)
+				player.Updated += OnPlayerEntityUpdated;
 		}
 		#endregion
 

@@ -27,9 +27,9 @@
 		[Test]
 		public void Get_Container_Contents_Recursively_Test()
 		{
-			List<EntityModel> inventory = Inventory.GetContainerContents(
-				this.entity,
-				Inventory.LoadOptions.Recursive);
+			IList<EntityModel> inventory = new EntityModel(this.entity)
+				.SaturateContainerDetails(recurse: true)
+				.Entities;
 			Console.WriteLine(inventory.ToPrettyJson());
 			Assert.AreEqual(inventory.Count, 2);
 			Assert.IsNotNull(inventory[0].Entities);
@@ -39,8 +39,9 @@
 		[Test]
 		public void Get_Container_Contents_Test()
 		{
-			List<EntityModel> inventory =
-				Inventory.GetContainerContents(this.entity);
+			IList<EntityModel> inventory = new EntityModel(this.entity)
+				.SaturateContainerDetails(recurse: false)
+				.Entities;
 			Console.WriteLine(inventory.ToPrettyJson());
 			Assert.AreEqual(inventory.Count, 2);
 			Assert.IsNull(inventory[0].Entities);
@@ -67,8 +68,8 @@
 				this.entity,
 				"inventory").ToPrettyJson();
 			Console.WriteLine(result);
-			EntityModel[] inventory = JsonConvert.DeserializeObject<EntityModel[]>(result);
-			Assert.AreEqual(inventory.Length, 2);
+			IList<EntityModel> inventory = JsonConvert.DeserializeObject<IList<EntityModel>>(result);
+			Assert.AreEqual(inventory.Count, 2);
 			Assert.IsNull(inventory[0].Entities);
 		}
 
@@ -79,9 +80,9 @@
 			string result = this.interpreter.Interpret(
 				this.entity,
 				"items").ToPrettyJson();
-			EntityModel[] inventory = JsonConvert.DeserializeObject<EntityModel[]>(result);
+			IList<EntityModel> inventory = JsonConvert.DeserializeObject<IList<EntityModel>>(result);
 			Console.WriteLine(result);
-			Assert.AreEqual(inventory.Length, 2);
+			Assert.AreEqual(inventory.Count, 2);
 			Assert.IsNull(inventory[0].Entities);
 		}
 
@@ -107,29 +108,29 @@
 
 			this.interpreter = new Interpreter(Assembly.GetAssembly(typeof(ReverieGame)));
 
-			ContainerComponent inventory = new ContainerComponent(10);
+			Container inventory = new Container(10);
 			this.entity.AddComponent(inventory);
 
 			EntityDataCache entityDatas = WorldCache.GetCache(this.world).EntityDatas;
 
 			Entity itemStack = this.world.CreateEntity();
-			itemStack.AddComponent(new StackComponent(3, 3));
+			itemStack.AddComponent(new EntityStack(3, 3));
 			itemStack.AddComponent(entityDatas[EntityType.Consumable]);
 
 			Entity itemSingle = this.world.CreateEntity();
 			itemSingle.AddComponent(entityDatas[EntityType.Consumable]);
 
 			Entity bag = this.world.CreateEntity();
-			ContainerComponent containerComponentComponent = new ContainerComponent(3);
-			EntityDataComponent bagEntityData = new EntityDataComponent(
+			Container container = new Container(3);
+			EntityData bagEntityData = new EntityData(
 				Guid.NewGuid(),
 				"Bag",
 				"Just a bag.",
 				null,
 				EntityType.Container);
 			bag.AddComponent(bagEntityData);
-			bag.AddComponent(containerComponentComponent);
-			containerComponentComponent.AddEntity(itemStack);
+			bag.AddComponent(container);
+			container.AddEntity(itemStack);
 
 			inventory.AddEntity(bag);
 			inventory.AddEntity(itemSingle);

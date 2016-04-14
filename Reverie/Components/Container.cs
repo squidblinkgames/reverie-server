@@ -8,7 +8,7 @@
 
 
 	[JsonObject(MemberSerialization.OptIn)]
-	public class ContainerComponent : Component
+	public class Container : Component
 	{
 		#region Fields
 		private int? capacity;
@@ -17,7 +17,7 @@
 
 
 		#region Constructors
-		public ContainerComponent(int? capacity = null, List<Guid> childEntityIds = null)
+		public Container(int? capacity = null, List<Guid> childEntityIds = null)
 		{
 			this.capacity = capacity;
 			this.childEntityIds = childEntityIds;
@@ -73,10 +73,10 @@
 		{
 			if (entity == null)
 				return 0;
-			
+
 			if (this.childEntityIds == null)
 				this.childEntityIds = new List<Guid>();
-			
+
 			// TODO: Check if capacity is breached.
 			// TODO: Don't allow child containers to add containers they're inside. Just compare child id's.
 			if (this.childEntityIds.Contains(entity.UniqueId))
@@ -85,6 +85,25 @@
 			this.childEntityIds.Add(entity.UniqueId);
 
 			return 1;
+		}
+
+
+		/// <summary>
+		/// Get all Entities contained by the container.
+		/// </summary>
+		/// <returns></returns>
+		public IReadOnlyCollection<Entity> GetChildEntities()
+		{
+			List<Entity> inventoryItems = new List<Entity>();
+			if (this.ChildEntityIds == null)
+				return inventoryItems;
+
+			foreach (Guid entityId in this.ChildEntityIds)
+			{
+				inventoryItems.Add(this.EntityWorld.GetEntityByUniqueId(entityId));
+			}
+
+			return inventoryItems.AsReadOnly();
 		}
 
 
@@ -105,6 +124,19 @@
 			this.childEntityIds.Remove(entity.UniqueId);
 
 			return 1;
+		}
+	}
+
+
+	public static class ContainerUtilities
+	{
+		public static IReadOnlyCollection<Entity> GetChildEntities(this Entity entity)
+		{
+			Container container = entity.GetComponent<Container>();
+			if (container == null)
+				return null;
+
+			return container.GetChildEntities();
 		}
 	}
 }

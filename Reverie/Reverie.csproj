@@ -56,14 +56,14 @@
     <Compile Include="CommandParser\Expression.cs" />
     <Compile Include="CommandParser\ExpressionType.cs" />
     <Compile Include="CommandParser\ParameterExpression.cs" />
-    <Compile Include="Components\ContainerComponent.cs" />
-    <Compile Include="Components\CreatureComponent.cs" />
-    <Compile Include="Components\LocationComponent.cs" />
-    <Compile Include="Components\PlayerComponent.cs" />
-    <Compile Include="Components\EntityDataComponent.cs" />
-    <Compile Include="Components\StackComponent.cs" />
+    <Compile Include="Components\Container.cs" />
+    <Compile Include="Components\Creature.cs" />
+    <Compile Include="Components\Location.cs" />
+    <Compile Include="Components\MapNode.cs" />
+    <Compile Include="Components\Player.cs" />
+    <Compile Include="Components\EntityData.cs" />
+    <Compile Include="Components\EntityStack.cs" />
     <Compile Include="EntityType.cs" />
-    <Compile Include="Maps\MapNode.cs" />
     <Compile Include="Maps\Room.cs" />
     <Compile Include="Models\EntityModel.cs" />
     <Compile Include="Cache\MapCache.cs" />
@@ -78,7 +78,6 @@
     <Compile Include="Maps\Map.cs" />
     <Compile Include="Templates\NewPlayerTemplate.cs" />
     <Compile Include="Utilities\EntityExtensions.cs" />
-    <Compile Include="Utilities\Inventory.cs" />
     <Compile Include="Utilities\JsonExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

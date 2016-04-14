@@ -7,7 +7,7 @@
 	using PrimitiveEngine.Components;
 
 
-	public class CreatureComponent : Component
+	public class Creature : Component
 	{
 		public const string Head = "Head";
 		public const string Neck = "Neck";
@@ -30,7 +30,7 @@
 
 
 		#region Constructors
-		public CreatureComponent()
+		public Creature()
 		{
 			this.health = new ValueRange<int>();
 			this.memory = new ValueRange<int>();
@@ -39,7 +39,7 @@
 		}
 
 
-		public CreatureComponent(IEnumerable<Tuple<string, long?>> parts)
+		public Creature(IEnumerable<Tuple<string, long?>> parts)
 		{
 			this.parts = new List<Tuple<string, long?>>(parts);
 		}
@@ -96,7 +96,7 @@
 		#endregion
 
 
-		public CreatureComponent AddPart(
+		public Creature AddPart(
 			string part,
 			long? equippedItemId = null)
 		{

@@ -6,7 +6,7 @@
 
 
 	[JsonObject(MemberSerialization.OptIn)]
-	public class LocationComponent : Component
+	public class Location : Component
 	{
 		#region Fields
 		private string map;
@@ -18,14 +18,14 @@
 
 		#region Constructors
 		/// <summary>
-		/// Initializes a new instance of the <see cref="LocationComponent"/> class.
+		/// Initializes a new instance of the <see cref="Location"/> class.
 		/// </summary>
 		/// <param name="map">The game world id.</param>
 		/// <param name="localeId">The locale id.</param>
 		/// <param name="x">The X position.</param>
 		/// <param name="y">The Y position.</param>
 		/// <param name="z">The Z position.</param>
-		public LocationComponent(
+		public Location(
 			string map,
 			int x,
 			int y,
@@ -39,12 +39,12 @@
 
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="LocationComponent"/> class.
+		/// Initializes a new instance of the <see cref="Location"/> class.
 		/// </summary>
 		/// <param name="map">The game world id.</param>
 		/// <param name="localeId">The locale id.</param>
 		/// <param name="position">The X, Y, Z position.</param>
-		public LocationComponent(
+		public Location(
 			string map,
 			IntegerVector3 position)
 		{

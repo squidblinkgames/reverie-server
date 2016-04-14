@@ -136,7 +136,7 @@
 
 		private bool AddRoomEntityToken(string expression)
 		{
-			if (!this.invokingEntity.HasComponent<LocationComponent>())
+			if (!this.invokingEntity.HasComponent<Location>())
 				return false;
 			
 			IReadOnlyCollection<Entity> roomEntities = this.invokingEntity
@@ -178,8 +178,8 @@
 		{
 			Entity inventoryEntity;
 			Entity container = this.invokingEntity;
-			List<Entity> entityInventory = this.invokingEntity
-				.GetContainerEntities();
+			IReadOnlyCollection<Entity> entityInventory = 
+				this.invokingEntity.GetChildEntities();
 
 			inventoryEntity = entityInventory.FindByName(item);
 			if (inventoryEntity != null)
@@ -195,34 +195,34 @@
 		private bool ScrapeInventoryPath(string itemPath)
 		{
 			Entity inventoryEntity;
-			Entity container = this.invokingEntity;
+			Entity containerEntity = this.invokingEntity;
 
 			string[] containerPath = itemPath.Split('/');
 			for (int i = 0; i < containerPath.Length; i++)
 			{
 				string part = containerPath[i];
-				inventoryEntity = container
-					.GetContainerEntities()
+				inventoryEntity = containerEntity
+					.GetChildEntities()
 					.FindByName(part);
 				if (inventoryEntity == null)
 					return false;
 
-				ContainerComponent containerComponent =
-					inventoryEntity.GetComponent<ContainerComponent>();
-				if (containerComponent != null
-					&& containerComponent.ChildEntityIds != null)
+				Container container =
+					inventoryEntity.GetComponent<Container>();
+				if (container != null
+					&& container.ChildEntityIds != null)
 				{
 					if (i == containerPath.Length - 1)
 					{
-						this.tokens.Add(new EntityExpression(inventoryEntity, container));
+						this.tokens.Add(new EntityExpression(inventoryEntity, containerEntity));
 						return true;
 					}
-					container = inventoryEntity;
+					containerEntity = inventoryEntity;
 				}
 
 				else
 				{
-					this.tokens.Add(new EntityExpression(inventoryEntity, container));
+					this.tokens.Add(new EntityExpression(inventoryEntity, containerEntity));
 					return true;
 				}
 			}

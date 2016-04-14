@@ -2,7 +2,6 @@
 {
 	using System.Collections.Generic;
 	using Reverie.Models;
-	using Reverie.Utilities;
 
 
 	public class InventoryCommand : CommandExpression
@@ -33,20 +32,23 @@
 
 		public override void ProcessExpression(ExpressionTokens expressionTokens)
 		{
-			
-			List<EntityModel> inventory;
+			IList<EntityModel> inventory;
 
 			Expression nextToken = expressionTokens.GetRightToken();
 			if (nextToken != null
 				&& nextToken.ExpressionType == ExpressionType.Parameter
-				&& nextToken.Result == "all")
+				&& nextToken.Result.Equals("all"))
 			{
-				inventory = Inventory.GetContainerContents(
-					expressionTokens.InvokingEntity,
-					Inventory.LoadOptions.Recursive);
+				inventory = new EntityModel(expressionTokens.InvokingEntity)
+					.SaturateContainerDetails(recurse: true)
+					.Entities;
 			}
 			else
-				inventory = Inventory.GetContainerContents(expressionTokens.InvokingEntity);
+			{
+				inventory = new EntityModel(expressionTokens.InvokingEntity)
+					.SaturateContainerDetails(recurse: false)
+					.Entities;
+			}
 
 			this.Interpretted = true;
 			this.Result = inventory;

@@ -3,7 +3,7 @@
 	using PrimitiveEngine.Components;
 
 
-	public class StackComponent : Component
+	public class EntityStack : Component
 	{
 		#region Fields
 		private int quantity;
@@ -12,7 +12,7 @@
 
 
 		#region Constructors
-		public StackComponent(int quantity, int maxQuantity)
+		public EntityStack(int quantity, int maxQuantity)
 		{
 			this.quantity = quantity;
 			this.maxQuantity = maxQuantity;

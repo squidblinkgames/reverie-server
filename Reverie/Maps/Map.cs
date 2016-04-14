@@ -3,6 +3,7 @@
 	using System;
 	using System.Collections.Generic;
 	using PrimitiveEngine;
+	using Reverie.Components;
 
 
 	public sealed class Map

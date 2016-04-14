@@ -7,21 +7,21 @@
 	using Reverie.Components;
 
 
-	public class EntityDataCache : IEnumerable<EntityDataComponent>
+	public class EntityDataCache : IEnumerable<EntityData>
 	{
 		#region Fields
-		private readonly Dictionary<Guid, EntityDataComponent> prototypes;
+		private readonly Dictionary<Guid, EntityData> prototypes;
 		#endregion
 
 
 		#region Constructors
 		public EntityDataCache()
 		{
-			this.prototypes = new Dictionary<Guid, EntityDataComponent>();
+			this.prototypes = new Dictionary<Guid, EntityData>();
 		}
 
 
-		public EntityDataCache(Dictionary<Guid, EntityDataComponent> prototypes)
+		public EntityDataCache(Dictionary<Guid, EntityData> prototypes)
 		{
 			this.prototypes = prototypes;
 		}
@@ -37,7 +37,7 @@
 
 
 		#region Indexers
-		public EntityDataComponent this[Guid id]
+		public EntityData this[Guid id]
 		{
 			get
 			{
@@ -49,7 +49,7 @@
 		#endregion
 
 
-		public void Add(EntityDataComponent entityData)
+		public void Add(EntityData entityData)
 		{
 			if (this.prototypes.ContainsKey(entityData.Id))
 			{
@@ -62,9 +62,9 @@
 		}
 
 
-		public EntityDataComponent GetBasePrototype(Entity entity)
+		public EntityData GetBasePrototype(Entity entity)
 		{
-			EntityDataComponent entityData = entity.GetComponent<EntityDataComponent>();
+			EntityData entityData = entity.GetComponent<EntityData>();
 			if (entityData == null)
 				return null;
 
@@ -72,7 +72,7 @@
 		}
 
 
-		public EntityDataComponent GetBasePrototype(EntityDataComponent entityData)
+		public EntityData GetBasePrototype(EntityData entityData)
 		{
 			if (entityData.ParentPrototypeId == null)
 				return entityData;
@@ -85,23 +85,23 @@
 		}
 
 
-		public IEnumerator<EntityDataComponent> GetEnumerator()
+		public IEnumerator<EntityData> GetEnumerator()
 		{
 			return this.prototypes.Values.GetEnumerator();
 		}
 
 
-		public EntityDataComponent Remove(EntityDataComponent entityData)
+		public EntityData Remove(EntityData entityData)
 		{
 			return Remove(entityData.Id);
 		}
 
 
-		public EntityDataComponent Remove(Guid id)
+		public EntityData Remove(Guid id)
 		{
 			if (!this.prototypes.ContainsKey(id))
 				return null;
-			EntityDataComponent removedEntityData = this.prototypes[id];
+			EntityData removedEntityData = this.prototypes[id];
 			this.prototypes.Remove(id);
 
 			return removedEntityData;

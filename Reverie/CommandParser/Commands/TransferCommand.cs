@@ -56,10 +56,10 @@ namespace CommandParser.Commands
 
 			EntityExpression origin = (EntityExpression)entityTokens[0];
 			EntityExpression destination = (EntityExpression)entityTokens[1];
-			ContainerComponent originContainer =
-				origin.ParentContainer.GetComponent<ContainerComponent>();
-			ContainerComponent destinationContainer =
-				destination.Entity.GetComponent<ContainerComponent>();
+			Container originContainer =
+				origin.ParentContainer.GetComponent<Container>();
+			Container destinationContainer =
+				destination.Entity.GetComponent<Container>();
 
 			if (originContainer != null
 				&& destinationContainer != null)

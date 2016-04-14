@@ -1,12 +1,14 @@
-﻿namespace Reverie.Maps
+﻿namespace Reverie.Components
 {
 	using System;
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	using PrimitiveEngine;
+	using PrimitiveEngine.Components;
+	using Reverie.Maps;
 
 
-	public sealed class MapNode
+	public sealed class MapNode : Component
 	{
 		#region Fields
 		private readonly EntityWorld entityWorld;

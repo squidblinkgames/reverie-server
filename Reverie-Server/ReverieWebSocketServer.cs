@@ -5,6 +5,7 @@
 	using System.Net;
 	using System.Threading.Tasks;
 	using PrimitiveEngine;
+	using Reverie.Components;
 	using Reverie.Maps;
 	using Reverie.Models;
 	using Reverie.Utilities;

@@ -7,6 +7,7 @@
 	using Reverie.Components;
 	using Reverie.Maps;
 	using Reverie.Cache;
+	using Reverie.Models;
 
 
 	public static class EntityExtensions
@@ -40,9 +41,45 @@
 		}
 
 
+		/// <summary>
+		/// Gets an item model representation of an entity.
+		/// </summary>
+		/// <param name="itemEntity">The item entity.</param>
+		/// <returns>The item model.</returns>
+		public static EntityModel GetItemModel(
+			this Entity itemEntity,
+			bool recursive,
+			bool toLowercase)
+		{
+			EntityWorld world = itemEntity.EntityWorld;
+			EntityData entityData = itemEntity.GetComponent<EntityData>();
+			EntityModel entityModel = SaturateBasicItemModel(itemEntity, entityData, toLowercase);
+
+			// If a container, get its contents, too.
+			if (!recursive)
+				return entityModel;
+
+			Container container = itemEntity.GetComponent<Container>();
+			if (container != null
+				&& container.ChildEntityIds != null)
+			{
+				entityModel.Entities = new List<EntityModel>();
+
+				foreach (Guid childId in container.ChildEntityIds)
+				{
+					Entity childEntity = world.GetEntityByUniqueId(childId);
+					EntityModel childEntityModel = GetItemModel(childEntity, recursive, toLowercase);
+					entityModel.Entities.Add(childEntityModel);
+				}
+			}
+
+			return entityModel;
+		}
+
+
 		public static MapNode GetMapNode(this Entity entity)
 		{
-			LocationComponent location = entity.GetComponent<LocationComponent>();
+			Location location = entity.GetComponent<Location>();
 			if (location == null)
 				return null;
 
@@ -55,7 +92,7 @@
 
 		public static string GetName(this Entity entity)
 		{
-			EntityDataComponent entityData = entity.GetComponent<EntityDataComponent>();
+			EntityData entityData = entity.GetComponent<EntityData>();
 			if (entityData == null)
 				return null;
 
@@ -65,7 +102,7 @@
 
 		public static IntegerVector3 GetPosition(this Entity entity)
 		{
-			LocationComponent location = entity.GetComponent<LocationComponent>();
+			Location location = entity.GetComponent<Location>();
 			if (location == null)
 				return null;
 
@@ -83,5 +120,35 @@
 
 			return entityIds.AsReadOnly();
 		}
+
+
+		#region Helper Methods
+		private static EntityModel SaturateBasicItemModel(
+			Entity itemEntity,
+			EntityData entityData,
+			bool toLowercase)
+		{
+			EntityWorld world = itemEntity.EntityWorld;
+			EntityDataCache entityDatas = WorldCache.GetCache(world).EntityDatas;
+			EntityModel entityModel = new EntityModel();
+
+			// Get basic item details.
+			if (toLowercase)
+				entityModel.Name = entityData.Name.ToLower();
+			else
+				entityModel.Name = entityData.Name;
+			entityModel.Id = itemEntity.UniqueId;
+			// entityModel.Type = entityDatas.GetBasePrototype(itemEntity).Name;
+
+			// Get quantity.
+			EntityStack entityStack = itemEntity.GetComponent<EntityStack>();
+			if (entityStack == null)
+				entityModel.Quantity = 1;
+			else
+				entityModel.Quantity = entityStack.Quantity;
+
+			return entityModel;
+		}
+		#endregion
 	}
 }

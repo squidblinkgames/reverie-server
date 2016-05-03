@@ -14,7 +14,7 @@
 
 		public abstract CommandExpression CreateInstance();
 
-		public abstract override void ProcessExpression(ExpressionTokens expressionTokens);
+		public abstract override void ProcessExpression(CommandTokens commandTokens);
 
 
 		public static IList<Type> FindAllInAssembly(Assembly assembly)

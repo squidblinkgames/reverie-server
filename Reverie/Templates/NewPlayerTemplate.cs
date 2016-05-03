@@ -1,7 +1,6 @@
 ﻿namespace Reverie.Templates
 {
 	using System;
-	using System.Collections.Generic;
 	using PrimitiveEngine;
 	using Reverie.Components;
 	using Reverie.Cache;
@@ -12,12 +11,7 @@
 	public class NewPlayerTemplate : IEntityTemplate
 	{
 		public const string Name = "NewPlayerTemplate";
-
-
-		#region Fields
-		private Dictionary<int, EntityData> prototypes;
-		#endregion
-
+		
 
 		public Entity BuildEntity(Entity entity, EntityWorld entityWorld, params object[] args)
 		{
@@ -33,26 +27,6 @@
 
 
 		#region Helper Methods
-		private void AddEntityDataComponent(Entity entity)
-		{
-			EntityData entityData = new EntityData(
-				Guid.NewGuid(),
-				"Another Player",
-				"You see another player over there.",
-				null);
-			entity.AddComponent(entityData);
-		}
-		
-		
-		private void AddLocationComponent(Entity entity)
-		{
-			Location location = new Location(
-				MockWorld.StartMapName,
-				0, 0, 0);
-			entity.AddComponent(location);
-		}
-
-
 		private void AddCreatureComponent(Entity entity)
 		{
 			Creature creature = new Creature();
@@ -82,14 +56,37 @@
 
 			entity.AddComponent(creature);
 		}
-		
+
+
+		private void AddEntityDataComponent(Entity entity)
+		{
+			EntityDetails entityDetails = new EntityDetails(
+				Guid.NewGuid(),
+				"Another Player",
+				"You see another player over there.",
+				null);
+			entity.AddComponent(entityDetails);
+		}
+
+
+		private void AddLocationComponent(Entity entity)
+		{
+			Location location = new Location(
+				MockWorld.StartMapName,
+				0,
+				0,
+				0);
+			entity.AddComponent(location);
+		}
+
+
 		private void AddNewPlayerInventory(Entity entity)
 		{
 			EntityWorld gameWorld = entity.EntityWorld;
 			EntityDataCache entityDatas = WorldCache.GetCache(gameWorld).EntityDatas;
 
 			Container inventory = new Container(10);
-			
+
 			entity.AddComponent(inventory);
 
 			Entity itemStack = gameWorld.CreateEntity();
@@ -101,27 +98,27 @@
 
 			Entity bag = gameWorld.CreateEntity();
 			Container bagContainer = new Container(3);
-			EntityData bagEntityData = new EntityData(
+			EntityDetails bagEntityDetails = new EntityDetails(
 				Guid.NewGuid(),
 				"Bag",
 				"Just some bag.",
 				null,
 				EntityType.Container);
-			entityDatas.Add(bagEntityData);
-			bag.AddComponent(bagEntityData);
+			entityDatas.Add(bagEntityDetails);
+			bag.AddComponent(bagEntityDetails);
 			bag.AddComponent(bagContainer);
 			bagContainer.AddEntity(itemStack);
 
 			Entity backpack = gameWorld.CreateEntity();
 			Container backpackContainer = new Container(3);
-			EntityData backpackEntityData = new EntityData(
+			EntityDetails backpackEntityDetails = new EntityDetails(
 				Guid.NewGuid(),
 				"Backpack",
 				"A weathered old backpack.",
 				null,
 				EntityType.Container);
-			entityDatas.Add(backpackEntityData);
-			backpack.AddComponent(backpackEntityData);
+			entityDatas.Add(backpackEntityDetails);
+			backpack.AddComponent(backpackEntityDetails);
 			backpack.AddComponent(backpackContainer);
 
 			inventory.AddEntity(bag);

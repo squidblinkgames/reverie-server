@@ -5,6 +5,7 @@
 	using System.Collections.ObjectModel;
 	using PrimitiveEngine;
 	using PrimitiveEngine.Components;
+	using Reverie.Cache;
 	using Reverie.Maps;
 
 
@@ -12,26 +13,26 @@
 	{
 		#region Fields
 		private readonly EntityWorld entityWorld;
-		private Room room;
+		private RoomDetails roomDetails;
 		private IList<RoomExit> exits;
 		private readonly List<Guid> entityIds;
 		#endregion
 
 
 		#region Constructors
-		public MapNode(EntityWorld entityWorld, Room room, IList<RoomExit> exits)
+		public MapNode(EntityWorld entityWorld, RoomDetails roomDetails, IList<RoomExit> exits)
 		{
 			this.entityWorld = entityWorld;
-			this.room = room;
+			this.roomDetails = roomDetails;
 			this.exits = exits;
 			this.entityIds = new List<Guid>();
 		}
 
 
-		public MapNode(EntityWorld entityWorld, Room room, IList<RoomExit> exits, List<Guid> entityIds)
+		public MapNode(EntityWorld entityWorld, RoomDetails roomDetails, IList<RoomExit> exits, List<Guid> entityIds)
 		{
 			this.entityWorld = entityWorld;
-			this.room = room;
+			this.roomDetails = roomDetails;
 			this.exits = exits;
 			this.entityIds = entityIds;
 		}
@@ -45,21 +46,15 @@
 		}
 
 
-		public EntityWorld EntityWorld
-		{
-			get { return this.entityWorld; }
-		}
-
-
 		public IReadOnlyCollection<RoomExit> Exits
 		{
 			get { return new ReadOnlyCollection<RoomExit>(this.exits); }
 		}
 
 
-		public Room Room
+		public RoomDetails RoomDetails
 		{
-			get { return this.room; }
+			get { return this.roomDetails; }
 		}
 		#endregion
 

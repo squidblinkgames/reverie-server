@@ -1,6 +1,8 @@
 ﻿namespace CommandParser
 {
 	using PrimitiveEngine;
+	using Reverie.Components;
+	using Reverie.Extensions;
 	using Reverie.Utilities;
 
 
@@ -18,7 +20,7 @@
 			this.entity = entity;
 			this.parentContainer = parentContainer;
 			this.Interpretted = true;
-			this.Result = entity.GetName();
+			this.Result = entity.GetEntityName();
 		}
 		#endregion
 

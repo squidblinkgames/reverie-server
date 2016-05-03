@@ -54,7 +54,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Items\InventoryTests.cs" />
+    <Compile Include="CommandParser\Commands\InventoryCommandTests.cs" />
+    <Compile Include="Components\ContainerTests.cs" />
+    <Compile Include="MapTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +72,7 @@
       <Name>Reverie</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

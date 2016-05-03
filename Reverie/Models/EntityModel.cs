@@ -97,12 +97,12 @@
 
 		public EntityModel SaturateEntityDetails()
 		{
-			EntityData entityData = this.entity.GetComponent<EntityData>();
-			if (entityData == null)
+			EntityDetails entityDetails = this.entity.GetComponent<EntityDetails>();
+			if (entityDetails == null)
 				return this;
 
-			this.Name = entityData.Name;
-			this.Description = entityData.Description;
+			this.Name = entityDetails.Name;
+			this.Description = entityDetails.Description;
 
 			return this;
 		}
@@ -128,8 +128,8 @@
 		#region Helper Methods
 		private EntityModel SaturateContainerDetails(
 			Entity entity, 
-			bool includeComponents,
-			bool recurse)
+			bool recurse,
+			bool includeComponents)
 		{
 			Container container = entity.GetComponent<Container>();
 			if (container == null)

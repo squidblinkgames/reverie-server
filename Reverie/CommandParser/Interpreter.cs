@@ -40,8 +40,8 @@
 
 		public object Interpret(Entity invokingEntity, string command)
 		{
-			ExpressionTokens expressionTokens = new ExpressionTokens(this, invokingEntity, command);
-			return expressionTokens.Interpret();
+			CommandTokens commandTokens = new CommandTokens(this, invokingEntity, command);
+			return commandTokens.Interpret();
 		}
 
 

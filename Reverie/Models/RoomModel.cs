@@ -59,26 +59,26 @@
 		private void GenerateDescription(MapNode mapNode)
 		{
 			StringBuilder description = new StringBuilder();
-			Room room = mapNode.Room;
+			RoomDetails roomDetails = mapNode.RoomDetails;
 
-			description.AppendLine("# " + room.Name)
+			description.AppendLine("# " + roomDetails.Name)
 				.AppendLine()
-				.AppendLine(room.Description)
+				.AppendLine(roomDetails.Description)
 				.AppendLine();
 
 			foreach (Entity item in items)
 			{
-				EntityData itemData = item.GetComponent<EntityData>();
+				EntityDetails itemDetails = item.GetComponent<EntityDetails>();
 				description.AppendLine(
-					"- There is a [" + itemData.Name + "]" +
+					"- There is a [" + itemDetails.Name + "]" +
 					"(/items/" + item.UniqueId + ") here.");
 			}
 
 			foreach (Entity character in characters)
 			{
-				EntityData characterData = character.GetComponent<EntityData>();
+				EntityDetails characterDetails = character.GetComponent<EntityDetails>();
 				description.AppendLine(
-					"- [" + characterData.Name + "]" +
+					"- [" + characterDetails.Name + "]" +
 					"(/characters/" + character.UniqueId + ") is here.");
 			}
 

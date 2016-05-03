@@ -4,6 +4,7 @@ namespace CommandParser.Commands
 	using System.Collections.Generic;
 	using System.Linq;
 	using Reverie.Components;
+	using Reverie.Extensions;
 	using Reverie.Utilities;
 
 
@@ -38,10 +39,10 @@ namespace CommandParser.Commands
 		}
 
 
-		public override void ProcessExpression(ExpressionTokens expressionTokens)
+		public override void ProcessExpression(CommandTokens commandTokens)
 		{
 			List<Expression> entityTokens =
-				(from token in expressionTokens.Tokens
+				(from token in commandTokens.Tokens
 				where token.ExpressionType == ExpressionType.Entity
 				select token)
 					.ToList();
@@ -64,12 +65,11 @@ namespace CommandParser.Commands
 			if (originContainer != null
 				&& destinationContainer != null)
 			{
-				// TODO: Bug - Not always removing from the right container.
 				originContainer.RemoveEntity(origin.Entity);
 				destinationContainer.AddEntity(origin.Entity);
 				this.Result =
-					"Moved " + origin.Entity.GetName() +
-					" to " + destination.Entity.GetName() + ".";
+					"Moved " + origin.Entity.GetEntityName() +
+					" to " + destination.Entity.GetEntityName() + ".";
 			}
 			else
 				this.Result = "Cannot move item to something that isn't a container.";

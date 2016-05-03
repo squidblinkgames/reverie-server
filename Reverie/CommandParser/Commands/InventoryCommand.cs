@@ -30,22 +30,22 @@
 		}
 
 
-		public override void ProcessExpression(ExpressionTokens expressionTokens)
+		public override void ProcessExpression(CommandTokens commandTokens)
 		{
 			IList<EntityModel> inventory;
 
-			Expression nextToken = expressionTokens.GetRightToken();
+			Expression nextToken = commandTokens.GetRightToken();
 			if (nextToken != null
 				&& nextToken.ExpressionType == ExpressionType.Parameter
 				&& nextToken.Result.Equals("all"))
 			{
-				inventory = new EntityModel(expressionTokens.InvokingEntity)
+				inventory = new EntityModel(commandTokens.InvokingEntity)
 					.SaturateContainerDetails(recurse: true)
 					.Entities;
 			}
 			else
 			{
-				inventory = new EntityModel(expressionTokens.InvokingEntity)
+				inventory = new EntityModel(commandTokens.InvokingEntity)
 					.SaturateContainerDetails(recurse: false)
 					.Entities;
 			}

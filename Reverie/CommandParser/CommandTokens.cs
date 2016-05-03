@@ -5,11 +5,15 @@
 	using System.Text.RegularExpressions;
 	using PrimitiveEngine;
 	using Reverie.Components;
+	using Reverie.Extensions;
 	using Reverie.Utilities;
 
 
-	public class ExpressionTokens
+	public class CommandTokens
 	{
+		private static readonly string[] SelfExpressions = new[] { "self", "me" };
+
+
 		#region Fields
 		private Interpreter interpreter;
 		private Entity invokingEntity;
@@ -20,7 +24,7 @@
 
 
 		#region Constructors
-		public ExpressionTokens(
+		public CommandTokens(
 			Interpreter interpreter,
 			Entity invokingEntity,
 			string input)
@@ -138,15 +142,27 @@
 		{
 			if (!this.invokingEntity.HasComponent<Location>())
 				return false;
-			
+
 			IReadOnlyCollection<Entity> roomEntities = this.invokingEntity
 				.GetMapNode()
 				.GetEntities();
-			
-			Entity roomEntity = roomEntities.FindByName(expression);
+
+			Entity roomEntity = roomEntities.GetEntityByName(expression);
 			if (roomEntity != null)
 			{
 				this.tokens.Add(new EntityExpression(roomEntity));
+				return true;
+			}
+
+			return false;
+		}
+
+
+		private bool AddSelfEntityToken(string expression)
+		{
+			if (SelfExpressions.Contains(expression.ToLower()))
+			{
+				this.tokens.Add(new EntityExpression(this.invokingEntity));
 				return true;
 			}
 
@@ -163,6 +179,9 @@
 			{
 				string expression = expressions[i];
 
+				if (AddSelfEntityToken(expression))
+					continue;
+
 				if (AddInventoryEntityToken(expression))
 					continue;
 
@@ -178,10 +197,10 @@
 		{
 			Entity inventoryEntity;
 			Entity container = this.invokingEntity;
-			IReadOnlyCollection<Entity> entityInventory = 
+			IReadOnlyCollection<Entity> entityInventory =
 				this.invokingEntity.GetChildEntities();
 
-			inventoryEntity = entityInventory.FindByName(item);
+			inventoryEntity = entityInventory.GetEntityByName(item);
 			if (inventoryEntity != null)
 			{
 				this.tokens.Add(new EntityExpression(inventoryEntity, container));
@@ -203,7 +222,7 @@
 				string part = containerPath[i];
 				inventoryEntity = containerEntity
 					.GetChildEntities()
-					.FindByName(part);
+					.GetEntityByName(part);
 				if (inventoryEntity == null)
 					return false;
 

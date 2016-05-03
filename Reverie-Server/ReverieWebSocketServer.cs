@@ -8,6 +8,7 @@
 	using Reverie.Components;
 	using Reverie.Maps;
 	using Reverie.Models;
+	using Reverie.Extensions;
 	using Reverie.Utilities;
 	using vtortola.WebSockets;
 

@@ -15,7 +15,7 @@
 		/// <summary>
 		/// Processes the expression associated with this object.
 		/// </summary>
-		public virtual void ProcessExpression(ExpressionTokens expressionTokens) {}
+		public virtual void ProcessExpression(CommandTokens commandTokens) {}
 
 
 		public override string ToString()

@@ -51,7 +51,7 @@
     <Compile Include="CommandParser\Commands\InventoryCommand.cs" />
     <Compile Include="CommandParser\Commands\TakeCommand.cs" />
     <Compile Include="CommandParser\Commands\TransferCommand.cs" />
-    <Compile Include="CommandParser\ExpressionTokens.cs" />
+    <Compile Include="CommandParser\CommandTokens.cs" />
     <Compile Include="CommandParser\EntityExpression.cs" />
     <Compile Include="CommandParser\Expression.cs" />
     <Compile Include="CommandParser\ExpressionType.cs" />
@@ -61,10 +61,10 @@
     <Compile Include="Components\Location.cs" />
     <Compile Include="Components\MapNode.cs" />
     <Compile Include="Components\Player.cs" />
-    <Compile Include="Components\EntityData.cs" />
+    <Compile Include="Components\EntityDetails.cs" />
     <Compile Include="Components\EntityStack.cs" />
     <Compile Include="EntityType.cs" />
-    <Compile Include="Maps\Room.cs" />
+    <Compile Include="Maps\RoomDetails.cs" />
     <Compile Include="Models\EntityModel.cs" />
     <Compile Include="Cache\MapCache.cs" />
     <Compile Include="Cache\EntityDataCache.cs" />
@@ -77,8 +77,13 @@
     <Compile Include="Maps\RoomExit.cs" />
     <Compile Include="Maps\Map.cs" />
     <Compile Include="Templates\NewPlayerTemplate.cs" />
+    <Compile Include="Utilities\ContainerUtilities.cs" />
+    <Compile Include="Utilities\EntityDetailsUtilities.cs" />
     <Compile Include="Utilities\EntityExtensions.cs" />
+    <Compile Include="Utilities\EntityStackUtilities.cs" />
     <Compile Include="Utilities\JsonExtensions.cs" />
+    <Compile Include="Utilities\LocationUtilities.cs" />
+    <Compile Include="Utilities\MapNodeUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -2,12 +2,13 @@ namespace Reverie.Components
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Linq;
 	using PrimitiveEngine;
 	using PrimitiveEngine.Components;
 	using Reverie.Cache;
 
 
-	public class EntityData : Component
+	public class EntityDetails : Component
 	{
 		#region Fields
 		private readonly Guid id;
@@ -19,7 +20,7 @@ namespace Reverie.Components
 
 
 		#region Constructors
-		public EntityData(
+		public EntityDetails(
 			Guid id,
 			string name,
 			string description,
@@ -32,6 +33,14 @@ namespace Reverie.Components
 			this.properties = properties;
 			this.parentPrototypeId = parentPrototypeId;
 		}
+
+
+		public EntityDetails(
+			string name,
+			string description,
+			Dictionary<string, DynamicValue> properties = null,
+			Guid parentPrototypeId = default(Guid))
+			: this(Guid.NewGuid(), name, description, properties, parentPrototypeId) {}
 		#endregion
 
 
@@ -72,20 +81,20 @@ namespace Reverie.Components
 		//TODO
 		private void MergeAllParentProperties(
 			EntityWorld world,
-			EntityData parentEntityData)
+			EntityDetails parentEntityDetails)
 		{
-			foreach (KeyValuePair<string, DynamicValue> parentProperty in parentEntityData.properties)
+			foreach (KeyValuePair<string, DynamicValue> parentProperty in parentEntityDetails.properties)
 			{
 				if (this.properties.ContainsKey(parentProperty.Key))
 					continue;
 				this.properties.Add(parentProperty.Key, parentProperty.Value);
 			}
 
-			if (parentEntityData.parentPrototypeId != null)
+			if (parentEntityDetails.parentPrototypeId != null)
 			{
-				parentEntityData =
-					WorldCache.GetCache(world).EntityDatas[parentEntityData.parentPrototypeId];
-				MergeAllParentProperties(world, parentEntityData);
+				parentEntityDetails =
+					WorldCache.GetCache(world).EntityDatas[parentEntityDetails.parentPrototypeId];
+				MergeAllParentProperties(world, parentEntityDetails);
 			}
 		}
 		#endregion

@@ -7,21 +7,21 @@
 	using Reverie.Components;
 
 
-	public class EntityDataCache : IEnumerable<EntityData>
+	public class EntityDataCache : IEnumerable<EntityDetails>
 	{
 		#region Fields
-		private readonly Dictionary<Guid, EntityData> prototypes;
+		private readonly Dictionary<Guid, EntityDetails> prototypes;
 		#endregion
 
 
 		#region Constructors
 		public EntityDataCache()
 		{
-			this.prototypes = new Dictionary<Guid, EntityData>();
+			this.prototypes = new Dictionary<Guid, EntityDetails>();
 		}
 
 
-		public EntityDataCache(Dictionary<Guid, EntityData> prototypes)
+		public EntityDataCache(Dictionary<Guid, EntityDetails> prototypes)
 		{
 			this.prototypes = prototypes;
 		}
@@ -37,7 +37,7 @@
 
 
 		#region Indexers
-		public EntityData this[Guid id]
+		public EntityDetails this[Guid id]
 		{
 			get
 			{
@@ -49,35 +49,35 @@
 		#endregion
 
 
-		public void Add(EntityData entityData)
+		public void Add(EntityDetails entityDetails)
 		{
-			if (this.prototypes.ContainsKey(entityData.Id))
+			if (this.prototypes.ContainsKey(entityDetails.Id))
 			{
 				throw new ArgumentException(
-					"Prototype Id " + entityData.Id +
+					"Prototype Id " + entityDetails.Id +
 					" already exists in cache.");
 			}
 
-			this.prototypes.Add(entityData.Id, entityData);
+			this.prototypes.Add(entityDetails.Id, entityDetails);
 		}
 
 
-		public EntityData GetBasePrototype(Entity entity)
+		public EntityDetails GetBasePrototype(Entity entity)
 		{
-			EntityData entityData = entity.GetComponent<EntityData>();
-			if (entityData == null)
+			EntityDetails entityDetails = entity.GetComponent<EntityDetails>();
+			if (entityDetails == null)
 				return null;
 
-			return GetBasePrototype(entityData);
+			return GetBasePrototype(entityDetails);
 		}
 
 
-		public EntityData GetBasePrototype(EntityData entityData)
+		public EntityDetails GetBasePrototype(EntityDetails entityDetails)
 		{
-			if (entityData.ParentPrototypeId == null)
-				return entityData;
+			if (entityDetails.ParentPrototypeId == null)
+				return entityDetails;
 
-			Guid parentId = entityData.ParentPrototypeId;
+			Guid parentId = entityDetails.ParentPrototypeId;
 			if (this.prototypes.ContainsKey(parentId))
 				return GetBasePrototype(this.prototypes[parentId]);
 
@@ -85,26 +85,26 @@
 		}
 
 
-		public IEnumerator<EntityData> GetEnumerator()
+		public IEnumerator<EntityDetails> GetEnumerator()
 		{
 			return this.prototypes.Values.GetEnumerator();
 		}
 
 
-		public EntityData Remove(EntityData entityData)
+		public EntityDetails Remove(EntityDetails entityDetails)
 		{
-			return Remove(entityData.Id);
+			return Remove(entityDetails.Id);
 		}
 
 
-		public EntityData Remove(Guid id)
+		public EntityDetails Remove(Guid id)
 		{
 			if (!this.prototypes.ContainsKey(id))
 				return null;
-			EntityData removedEntityData = this.prototypes[id];
+			EntityDetails removedEntityDetails = this.prototypes[id];
 			this.prototypes.Remove(id);
 
-			return removedEntityData;
+			return removedEntityDetails;
 		}
 
 

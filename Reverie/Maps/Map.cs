@@ -10,7 +10,8 @@
 	{
 		#region Fields
 		private readonly string name;
-		private readonly Dictionary<IntegerVector3, MapNode> map;
+		private readonly Dictionary<string, EntityDetails> rooms; 
+		private readonly Dictionary<IntegerVector3, Entity> nodes;
 		#endregion
 
 
@@ -18,14 +19,14 @@
 		public Map(string name)
 		{
 			this.name = name;
-			this.map = new Dictionary<IntegerVector3, MapNode>();
+			this.nodes = new Dictionary<IntegerVector3, MapNode>();
 		}
 
 
-		public Map(string name, Dictionary<IntegerVector3, MapNode> map)
+		public Map(string name, Dictionary<IntegerVector3, MapNode> nodes)
 		{
 			this.name = name;
-			this.map = map;
+			this.nodes = nodes;
 		}
 		#endregion
 
@@ -39,29 +40,29 @@
 
 
 		#region Indexers
-		public MapNode this[IntegerVector3 coordinates]
+		public Entity this[IntegerVector3 coordinates]
 		{
 			get
 			{
-				if (this.map.ContainsKey(coordinates))
-					return this.map[coordinates];
+				if (this.nodes.ContainsKey(coordinates))
+					return this.nodes[coordinates];
 				return null;
 			}
 		}
 
 
-		public MapNode this[int x, int y, int z]
+		public Entity this[int x, int y, int z]
 		{
 			get { return this[new IntegerVector3(x, y, z)]; }
 		}
 		#endregion
 
 
-		public void AddNode(IntegerVector3 coordinates, MapNode mapNode)
+		public void AddNode(IntegerVector3 coordinates, string room)
 		{
-			if (this.map.ContainsKey(coordinates))
+			if (this.nodes.ContainsKey(coordinates))
 				throw new ArgumentException("Map coordinate already exists.");
-			this.map.Add(coordinates, mapNode);
+			this.nodes.Add(coordinates, mapNode);
 		}
 
 

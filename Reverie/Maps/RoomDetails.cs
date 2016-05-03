@@ -1,6 +1,6 @@
 ﻿namespace Reverie.Maps
 {
-	public sealed class Room
+	public sealed class RoomDetails
 	{
 		#region Fields
 		private string name;

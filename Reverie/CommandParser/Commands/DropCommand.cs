@@ -31,7 +31,7 @@ namespace CommandParser.Commands
 		}
 
 
-		public override void ProcessExpression(ExpressionTokens expressionTokens)
+		public override void ProcessExpression(CommandTokens commandTokens)
 		{
 			throw new System.NotImplementedException();
 		}

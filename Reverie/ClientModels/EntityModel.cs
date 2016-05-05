@@ -1,8 +1,7 @@
-﻿namespace Reverie.Models
+﻿namespace Reverie.ClientModels
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Linq;
 	using Newtonsoft.Json;
 	using PrimitiveEngine;
 	using PrimitiveEngine.Components;

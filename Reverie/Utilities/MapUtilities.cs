@@ -3,12 +3,11 @@
 	using PrimitiveEngine;
 	using Reverie.Cache;
 	using Reverie.Components;
-	using Reverie.Maps;
 
 
-	public static class MapNodeUtilities
+	public static class MapUtilities
 	{
-		public static MapNode GetMapNode(this Entity entity)
+		public static Entity GetRoom(this Entity entity)
 		{
 			Location location = entity.GetComponent<Location>();
 			if (location == null)

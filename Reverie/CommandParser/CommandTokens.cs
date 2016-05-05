@@ -144,7 +144,7 @@
 				return false;
 
 			IReadOnlyCollection<Entity> roomEntities = this.invokingEntity
-				.GetMapNode()
+				.GetRoom()
 				.GetEntities();
 
 			Entity roomEntity = roomEntities.GetEntityByName(expression);

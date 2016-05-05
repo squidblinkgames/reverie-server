@@ -1,7 +1,7 @@
 ﻿namespace CommandParser.Commands
 {
 	using System.Collections.Generic;
-	using Reverie.Models;
+	using Reverie.ClientModels;
 
 
 	public class InventoryCommand : CommandExpression

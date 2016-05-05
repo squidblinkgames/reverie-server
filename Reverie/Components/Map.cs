@@ -1,12 +1,12 @@
-﻿namespace Reverie.Maps
+﻿namespace Reverie.Components
 {
 	using System;
 	using System.Collections.Generic;
 	using PrimitiveEngine;
-	using Reverie.Components;
+	using PrimitiveEngine.Components;
 
 
-	public sealed class Map
+	public sealed class Map : Component
 	{
 		#region Fields
 		private readonly string name;
@@ -35,6 +35,12 @@
 		public string Name
 		{
 			get { return this.name; }
+		}
+
+
+		public Dictionary<IntegerVector3, Entity> Nodes
+		{
+			get { return this.nodes; }
 		}
 		#endregion
 

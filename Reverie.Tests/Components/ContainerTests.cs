@@ -10,7 +10,7 @@
 	using Reverie.Cache;
 	using Reverie.Components;
 	using Reverie.Debug;
-	using Reverie.Models;
+	using Reverie.ClientModels;
 
 
 	[TestFixture]

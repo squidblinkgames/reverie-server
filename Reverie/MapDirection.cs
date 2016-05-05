@@ -1,4 +1,4 @@
-﻿namespace Reverie.Maps
+﻿namespace Reverie
 {
 	using System.Collections.Generic;
 
@@ -6,7 +6,7 @@
 	/// <summary>
 	/// Possible exits for a room/map node.
 	/// </summary>
-	public enum RoomExit
+	public enum MapDirection
 	{
 		None = 0,
 		North = 1,
@@ -22,12 +22,12 @@
 	}
 
 
-	public static class RoomExitExtensions
+	public static class MapDirectionExtensions
 	{
-		public static IReadOnlyCollection<string> ToStrings(this IEnumerable<RoomExit> roomExits)
+		public static IReadOnlyCollection<string> ToStrings(this IEnumerable<MapDirection> roomExits)
 		{
 			List<string> roomExitStrings = new List<string>();
-			foreach (RoomExit roomExit in roomExits)
+			foreach (MapDirection roomExit in roomExits)
 			{
 				roomExitStrings.Add(roomExit.ToString());
 			}

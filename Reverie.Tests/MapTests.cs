@@ -1,10 +1,10 @@
 ﻿namespace Reverie.Tests
 {
+	using System.Collections.Generic;
 	using NUnit.Framework;
 	using PrimitiveEngine;
 	using Reverie.Components;
 	using Reverie.Debug;
-	using Reverie.Maps;
 	using Reverie.Utilities;
 
 
@@ -22,15 +22,16 @@
 			public void Can_Get_Exits_List()
 			{
 				ResetEntityPosition();
-				MapDirection[] exits = this.entity.GetExits();
+				IReadOnlyList<MapDirection> exits = this.entity.GetExits();
 
+				Assert.IsNotEmpty(exits);
 			}
 
 
 			[Test]
 			public void Can_Move_Through_Available_Exit()
 			{
-				
+				ResetEntityPosition();
 			}
 
 

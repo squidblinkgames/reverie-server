@@ -2,7 +2,7 @@
 {
 	using System.Collections;
 	using System.Collections.Generic;
-	using Reverie.Maps;
+	using Reverie.Components;
 
 
 	public sealed class MapCache : IEnumerable<Map>

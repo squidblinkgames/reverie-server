@@ -9,7 +9,7 @@
 	public class Location : Component
 	{
 		#region Fields
-		private string map;
+		private Map map;
 		private int x;
 		private int y;
 		private int z;
@@ -20,13 +20,13 @@
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Location"/> class.
 		/// </summary>
-		/// <param name="map">The game world id.</param>
+		/// <param name="map">A Map component.</param>
 		/// <param name="localeId">The locale id.</param>
 		/// <param name="x">The X position.</param>
 		/// <param name="y">The Y position.</param>
 		/// <param name="z">The Z position.</param>
 		public Location(
-			string map,
+			Map map,
 			int x,
 			int y,
 			int z)
@@ -41,11 +41,11 @@
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Location"/> class.
 		/// </summary>
-		/// <param name="map">The game world id.</param>
+		/// <param name="map">A Map component.</param>
 		/// <param name="localeId">The locale id.</param>
 		/// <param name="position">The X, Y, Z position.</param>
 		public Location(
-			string map,
+			Map map,
 			IntegerVector3 position)
 		{
 			this.map = map;
@@ -57,18 +57,48 @@
 
 
 		#region Properties
+		public IntegerVector3 Down
+		{
+			get { return new IntegerVector3(this.x, this.y, this.z - 1); }
+		}
+
+
+		public IntegerVector3 East
+		{
+			get { return new IntegerVector3(this.x + 1, this.y, this.z); }
+		}
+
+
 		/// <summary>
 		/// Gets or sets the game world id of the location.
 		/// </summary>
 		/// <value>The game world id.</value>
 		[JsonProperty]
-		public string Map
+		public Map Map
 		{
 			get { return this.map; }
 			set { this.map = value; }
 		}
 
-		
+
+		public IntegerVector3 North
+		{
+			get { return new IntegerVector3(this.x, this.y + 1, this.z); }
+		}
+
+
+		public IntegerVector3 NorthEast
+		{
+			get { return new IntegerVector3(this.x + 1, this.y + 1, this.z); }
+		}
+
+
+		public IntegerVector3 NorthWest
+		{
+			get { return new IntegerVector3(this.x - 1, this.y + 1, this.z); }
+		}
+
+
 		/// <summary>
 		/// Gets or sets the X, Y, and Z position of the location.
 		/// </summary>
@@ -82,6 +112,36 @@
 				this.y = value.Y;
 				this.z = value.Z;
 			}
+		}
+
+
+		public IntegerVector3 South
+		{
+			get { return new IntegerVector3(this.x, this.y - 1, this.z); }
+		}
+
+
+		public IntegerVector3 SouthEast
+		{
+			get { return new IntegerVector3(this.x + 1, this.y - 1, this.z); }
+		}
+
+
+		public IntegerVector3 SouthWest
+		{
+			get { return new IntegerVector3(this.x - 1, this.y - 1, this.z); }
+		}
+
+
+		public IntegerVector3 Up
+		{
+			get { return new IntegerVector3(this.x, this.y, this.z + 1); }
+		}
+
+
+		public IntegerVector3 West
+		{
+			get { return new IntegerVector3(this.x - 1, this.y, this.z); }
 		}
 
 

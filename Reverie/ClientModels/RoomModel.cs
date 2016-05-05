@@ -1,4 +1,4 @@
-﻿namespace Reverie.Models
+﻿namespace Reverie.ClientModels
 {
 	using System;
 	using System.Collections.Generic;
@@ -6,7 +6,6 @@
 	using System.Text;
 	using PrimitiveEngine;
 	using Reverie.Components;
-	using Reverie.Maps;
 
 
 	public class RoomModel
@@ -37,7 +36,7 @@
 		}
 
 
-		public List<RoomExit> Exits { get; set; }
+		public List<MapDirection> Exits { get; set; }
 
 
 		public string Message

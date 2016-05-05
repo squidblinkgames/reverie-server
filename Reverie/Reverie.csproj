@@ -59,7 +59,6 @@
     <Compile Include="Components\Container.cs" />
     <Compile Include="Components\Creature.cs" />
     <Compile Include="Components\Location.cs" />
-    <Compile Include="Components\MapNode.cs" />
     <Compile Include="Components\Player.cs" />
     <Compile Include="Components\EntityDetails.cs" />
     <Compile Include="Components\EntityStack.cs" />

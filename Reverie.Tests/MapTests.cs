@@ -16,74 +16,118 @@
 		// TODO: Checks to make sure rooms are not shared between maps.
 
 		[TestFixture]
-		class Move : TestBase
+		class Exits : TestBase
 		{
 			[Test]
-			public void Down()
+			public void Can_Get_Exits_List()
 			{
+				ResetEntityPosition();
+				MapDirection[] exits = this.entity.GetExits();
+
+			}
+
+
+			[Test]
+			public void Can_Move_Through_Available_Exit()
+			{
+				
+			}
+
+
+			[Test]
+			public void Cannot_Move_Through_Unavailable_Exit()
+			{
+				ResetEntityPosition();
+				IntegerVector3 expectedPosition = this.entity.GetPosition();
+				this.entity.Move(MapDirection.NorthEast);
+				IntegerVector3 newPosition = this.entity.GetPosition();
+
+				Assert.AreEqual(expectedPosition, newPosition);
+			}
+		}
+
+
+		[TestFixture]
+		class Movement : TestBase
+		{
+			[Test]
+			public void Can_Move_Down()
+			{
+				ResetEntityPosition();
 				IntegerVector3 position = this.entity.GetPosition();
 				int expectedY = position.Y - 1;
 				this.entity.Move(MapDirection.Down);
+
 				Assert.AreEqual(expectedY, this.entity.GetPosition().Y);
 			}
 
 
 			[Test]
-			public void East()
+			public void Can_Move_East()
 			{
+				ResetEntityPosition();
 				IntegerVector3 position = this.entity.GetPosition();
 				int expectedX = position.X + 1;
 				this.entity.Move(MapDirection.East);
+
 				Assert.AreEqual(expectedX, this.entity.GetPosition().X);
 			}
 
 
 			[Test]
-			public void North()
+			public void Can_Move_North()
 			{
+				ResetEntityPosition();
 				IntegerVector3 position = this.entity.GetPosition();
 				int expectedY = position.Y + 1;
 				this.entity.Move(MapDirection.North);
+
 				Assert.AreEqual(expectedY, this.entity.GetPosition().Y);
 			}
 
 
 			[Test]
-			public void South()
+			public void Can_Move_South()
 			{
+				ResetEntityPosition();
 				IntegerVector3 position = this.entity.GetPosition();
 				int expectedY = position.Y - 1;
 				this.entity.Move(MapDirection.South);
+
 				Assert.AreEqual(expectedY, this.entity.GetPosition().Y);
 			}
 
 
 			[Test]
-			public void Up()
+			public void Can_Move_Up()
 			{
+				ResetEntityPosition();
 				IntegerVector3 position = this.entity.GetPosition();
 				int expectedY = position.Y + 1;
 				this.entity.Move(MapDirection.Up);
+
 				Assert.AreEqual(expectedY, this.entity.GetPosition().Y);
 			}
 
 
 			[Test]
-			public void West()
+			public void Can_Move_West()
 			{
+				ResetEntityPosition();
 				IntegerVector3 position = this.entity.GetPosition();
 				int expectedX = position.X - 1;
 				this.entity.Move(MapDirection.West);
+
 				Assert.AreEqual(expectedX, this.entity.GetPosition().X);
 			}
 		}
 
 
 		[TestFixture]
-		class AddNode : TestBase
+		class AddingNodes : TestBase
 		{
 			[Test]
-			public void By_Entity()
+			public void Can_Add_By_Entity()
 			{
 				int x = 2, y = 0, z = 0;
 
@@ -103,16 +147,14 @@
 
 
 			[Test]
-			public void By_Name()
+			public void Can_Add_By_Name()
 			{
 				int x = 1, y = 2, z = 0;
-
 				this.map.AddNode(
 					x: x,
 					y: y,
 					z: z,
 					roomName: "North Room");
-
 				Entity roomEntity = this.map[x, y, z];
 
 				Assert.IsNotNull(roomEntity);
@@ -123,24 +165,24 @@
 
 
 		[TestFixture]
-		class RemoveNode : TestBase
+		class NodeRemoval : TestBase
 		{
 			[Test]
-			public void By_Coordinate()
+			public void Can_Remove_By_Coordinate()
 			{
+				int x = -1, y = -1, z = -1;
 				Entity temporaryRoom = this.world.CreateEntity(
 					name: "Room to Be Removed",
 					description: "Remove me!");
-
 				this.map.AddNode(
-					x: -1,
-					y: -1,
-					z: -1,
+					x: x,
+					y: y,
+					z: z,
 					roomEntity: temporaryRoom);
 
-				Entity removedRoom = this.map.RemoveNode(x: -1, y: -1, z: -1);
+				Entity removedRoom = this.map.RemoveNode(x, y, z);
 				Assert.IsNotNull(removedRoom);
-				Assert.IsNull(this.map[x: -1, y: -1, z: -1]);
+				Assert.IsNull(this.map[x, y, z]);
 			}
 		}
 
@@ -159,8 +201,8 @@
 			{
 				this.world = MockWorld.Generate();
 				this.entity = this.world.CreateEntity();
-
 				this.map = new Map();
+
 				map.AddRoom(
 					name: "North Room",
 					description: "You are in the northern room.");
@@ -210,6 +252,12 @@
 				mapEntity.AddComponent(this.map);
 
 				// TODO: Place entity inside the map.
+			}
+
+
+			protected void ResetEntityPosition()
+			{
+				this.entity.SetPosition(0, 0, 0);
 			}
 		}
 	}

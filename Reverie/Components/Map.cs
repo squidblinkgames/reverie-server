@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
 	using PrimitiveEngine;
 	using PrimitiveEngine.Components;
 
@@ -9,38 +10,24 @@
 	public sealed class Map : Component
 	{
 		#region Fields
-		private readonly string name;
-		private readonly Dictionary<string, EntityDetails> rooms; 
+		private readonly Dictionary<string, EntityDetails> rooms;
 		private readonly Dictionary<IntegerVector3, Entity> nodes;
 		#endregion
 
 
 		#region Constructors
-		public Map(string name)
+		public Map()
 		{
-			this.name = name;
-			this.nodes = new Dictionary<IntegerVector3, MapNode>();
-		}
-
-
-		public Map(string name, Dictionary<IntegerVector3, MapNode> nodes)
-		{
-			this.name = name;
-			this.nodes = nodes;
+			this.rooms = new Dictionary<string, EntityDetails>();
+			this.nodes = new Dictionary<IntegerVector3, Entity>();
 		}
 		#endregion
 
 
 		#region Properties
-		public string Name
+		public IReadOnlyDictionary<IntegerVector3, Entity> Nodes
 		{
-			get { return this.name; }
-		}
-
-
-		public Dictionary<IntegerVector3, Entity> Nodes
-		{
-			get { return this.nodes; }
+			get { return new ReadOnlyDictionary<IntegerVector3, Entity>(this.nodes); }
 		}
 		#endregion
 

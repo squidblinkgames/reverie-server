@@ -1,5 +1,6 @@
 ﻿namespace Reverie.Components
 {
+	using System;
 	using Newtonsoft.Json;
 	using PrimitiveEngine;
 	using PrimitiveEngine.Components;
@@ -9,7 +10,7 @@
 	public class Location : Component
 	{
 		#region Fields
-		private Map map;
+		private Guid mapId;
 		private int x;
 		private int y;
 		private int z;
@@ -20,18 +21,18 @@
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Location"/> class.
 		/// </summary>
-		/// <param name="map">A Map component.</param>
+		/// <param name="mapId">A Map component.</param>
 		/// <param name="localeId">The locale id.</param>
 		/// <param name="x">The X position.</param>
 		/// <param name="y">The Y position.</param>
 		/// <param name="z">The Z position.</param>
 		public Location(
-			Map map,
+			Guid mapId,
 			int x,
 			int y,
 			int z)
 		{
-			this.map = map;
+			this.mapId = mapId;
 			this.x = x;
 			this.y = y;
 			this.z = z;
@@ -41,14 +42,14 @@
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Location"/> class.
 		/// </summary>
-		/// <param name="map">A Map component.</param>
+		/// <param name="mapId">A Map component.</param>
 		/// <param name="localeId">The locale id.</param>
 		/// <param name="position">The X, Y, Z position.</param>
 		public Location(
-			Map map,
+			Guid mapId,
 			IntegerVector3 position)
 		{
-			this.map = map;
+			this.mapId = mapId;
 			this.x = position.X;
 			this.y = position.Y;
 			this.z = position.Z;
@@ -76,8 +77,8 @@
 		[JsonProperty]
 		public Map Map
 		{
-			get { return this.map; }
-			set { this.map = value; }
+			get { return this.mapId; }
+			set { this.mapId = value; }
 		}
 
 

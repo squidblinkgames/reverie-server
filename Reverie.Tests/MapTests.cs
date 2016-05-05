@@ -10,13 +10,13 @@
 
 	[TestFixture]
 	[Category("Components")]
-	class MapTests
+	internal class MapTests
 	{
 		// TODO: Exits and walls.
 		// TODO: Checks to make sure rooms are not shared between maps.
 
 		[TestFixture]
-		class Exits : TestBase
+		private class Exits : TestBase
 		{
 			[Test]
 			public void Can_Get_Exits_List()
@@ -25,13 +25,6 @@
 				IReadOnlyList<MapDirection> exits = this.entity.GetExits();
 
 				Assert.IsNotEmpty(exits);
-			}
-
-
-			[Test]
-			public void Can_Move_Through_Available_Exit()
-			{
-				ResetEntityPosition();
 			}
 
 
@@ -49,7 +42,7 @@
 
 
 		[TestFixture]
-		class Movement : TestBase
+		private class Movement : TestBase
 		{
 			[Test]
 			public void Can_Move_Down()
@@ -125,7 +118,7 @@
 
 
 		[TestFixture]
-		class AddingNodes : TestBase
+		private class AddingNodes : TestBase
 		{
 			[Test]
 			public void Can_Add_By_Entity()
@@ -166,7 +159,7 @@
 
 
 		[TestFixture]
-		class NodeRemoval : TestBase
+		private class NodeRemoval : TestBase
 		{
 			[Test]
 			public void Can_Remove_By_Coordinate()
@@ -188,7 +181,7 @@
 		}
 
 
-		abstract class TestBase
+		private abstract class TestBase
 		{
 			#region Fields
 			protected EntityWorld world;

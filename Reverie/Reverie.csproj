@@ -59,22 +59,21 @@
     <Compile Include="Components\Container.cs" />
     <Compile Include="Components\Creature.cs" />
     <Compile Include="Components\Location.cs" />
+    <Compile Include="Components\Map.cs" />
     <Compile Include="Components\Player.cs" />
     <Compile Include="Components\EntityDetails.cs" />
     <Compile Include="Components\EntityStack.cs" />
     <Compile Include="EntityType.cs" />
-    <Compile Include="Maps\RoomDetails.cs" />
-    <Compile Include="Models\EntityModel.cs" />
+    <Compile Include="MapDirection.cs" />
+    <Compile Include="ClientModels\EntityModel.cs" />
     <Compile Include="Cache\MapCache.cs" />
     <Compile Include="Cache\EntityDataCache.cs" />
     <Compile Include="Cache\ReverieState.cs" />
     <Compile Include="Cache\WorldCache.cs" />
     <Compile Include="Debug\MockWorld.cs" />
-    <Compile Include="Models\RoomModel.cs" />
+    <Compile Include="ClientModels\RoomModel.cs" />
     <Compile Include="ReverieGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Maps\RoomExit.cs" />
-    <Compile Include="Maps\Map.cs" />
     <Compile Include="Templates\NewPlayerTemplate.cs" />
     <Compile Include="Utilities\ContainerUtilities.cs" />
     <Compile Include="Utilities\EntityDetailsUtilities.cs" />
@@ -82,7 +81,7 @@
     <Compile Include="Utilities\EntityStackUtilities.cs" />
     <Compile Include="Utilities\JsonExtensions.cs" />
     <Compile Include="Utilities\LocationUtilities.cs" />
-    <Compile Include="Utilities\MapNodeUtilities.cs" />
+    <Compile Include="Utilities\MapUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

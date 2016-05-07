@@ -56,7 +56,8 @@
   <ItemGroup>
     <Compile Include="CommandParser\Commands\InventoryCommandTests.cs" />
     <Compile Include="Components\ContainerTests.cs" />
-    <Compile Include="MapTests.cs" />
+    <Compile Include="Components\LocationTests.cs" />
+    <Compile Include="Components\MapTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

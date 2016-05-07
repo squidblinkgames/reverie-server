@@ -58,45 +58,15 @@
 
 
 		#region Properties
-		public IntegerVector3 Down
-		{
-			get { return new IntegerVector3(this.x, this.y, this.z - 1); }
-		}
-
-
-		public IntegerVector3 East
-		{
-			get { return new IntegerVector3(this.x + 1, this.y, this.z); }
-		}
-
-
 		/// <summary>
 		/// Gets or sets the game world id of the location.
 		/// </summary>
 		/// <value>The game world id.</value>
 		[JsonProperty]
-		public Map Map
+		public Guid MapId
 		{
 			get { return this.mapId; }
 			set { this.mapId = value; }
-		}
-
-
-		public IntegerVector3 North
-		{
-			get { return new IntegerVector3(this.x, this.y + 1, this.z); }
-		}
-
-
-		public IntegerVector3 NorthEast
-		{
-			get { return new IntegerVector3(this.x + 1, this.y + 1, this.z); }
-		}
-
-
-		public IntegerVector3 NorthWest
-		{
-			get { return new IntegerVector3(this.x - 1, this.y + 1, this.z); }
 		}
 
 
@@ -113,36 +83,6 @@
 				this.y = value.Y;
 				this.z = value.Z;
 			}
-		}
-
-
-		public IntegerVector3 South
-		{
-			get { return new IntegerVector3(this.x, this.y - 1, this.z); }
-		}
-
-
-		public IntegerVector3 SouthEast
-		{
-			get { return new IntegerVector3(this.x + 1, this.y - 1, this.z); }
-		}
-
-
-		public IntegerVector3 SouthWest
-		{
-			get { return new IntegerVector3(this.x - 1, this.y - 1, this.z); }
-		}
-
-
-		public IntegerVector3 Up
-		{
-			get { return new IntegerVector3(this.x, this.y, this.z + 1); }
-		}
-
-
-		public IntegerVector3 West
-		{
-			get { return new IntegerVector3(this.x - 1, this.y, this.z); }
 		}
 
 

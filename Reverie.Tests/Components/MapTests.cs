@@ -1,4 +1,4 @@
-﻿namespace Reverie.Tests
+﻿namespace Reverie.Tests.Components
 {
 	using System.Collections.Generic;
 	using NUnit.Framework;
@@ -197,46 +197,46 @@
 				this.entity = this.world.CreateEntity();
 				this.map = new Map();
 
-				map.AddRoom(
+				this.map.AddRoom(
 					name: "North Room",
 					description: "You are in the northern room.");
-				map.AddNode(
+				this.map.AddNode(
 					x: 1,
 					y: 1,
 					z: 0,
 					roomName: "North Room");
 
-				map.AddRoom(
+				this.map.AddRoom(
 					name: "East Room",
 					description: "You are in the eastern room.");
-				map.AddNode(
+				this.map.AddNode(
 					x: 2,
 					y: 0,
 					z: 0,
 					roomName: "East Room");
 
-				map.AddRoom(
+				this.map.AddRoom(
 					name: "South Room",
 					description: "You are in the southern room.");
-				map.AddNode(
+				this.map.AddNode(
 					x: 1,
 					y: -1,
 					z: 0,
 					roomName: "South Room");
 
-				map.AddRoom(
+				this.map.AddRoom(
 					name: "West Room",
 					description: "You are in the western room.");
-				map.AddNode(
+				this.map.AddNode(
 					x: 0,
 					y: 0,
 					z: 0,
 					roomName: "West Room");
 
-				map.AddRoom(
+				this.map.AddRoom(
 					name: "Center Room",
 					description: "You are in the center room.");
-				map.AddNode(
+				this.map.AddNode(
 					x: 1,
 					y: 0,
 					z: 0,

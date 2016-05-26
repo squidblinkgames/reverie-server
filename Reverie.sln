@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reverie", "Reverie\Reverie.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reverie-Server", "Reverie-Server\Reverie-Server.csproj", "{539DAC60-8F7C-4C4A-A687-383AA4870D13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimitiveEngine", "..\PrimitiveEngine\PrimitiveEngine\PrimitiveEngine.csproj", "{2534C349-8421-47B8-A7B7-08AC9F49DAFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimitiveEngine", "..\primitive-engine\PrimitiveEngine\PrimitiveEngine.csproj", "{2534C349-8421-47B8-A7B7-08AC9F49DAFB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reverie-ServerHost", "Reverie-ServerHost\Reverie-ServerHost.csproj", "{10F8023A-E82F-4AC7-BCE7-90BE260BD22F}"
 EndProject

@@ -1,54 +1,54 @@
 ﻿namespace Reverie
 {
-	using System;
-	using System.Reflection;
-	using PrimitiveEngine;
-	using Reverie.Debug;
-	using Reverie.Templates;
+    using System;
+    using System.Reflection;
+    using PrimitiveEngine;
+    using Reverie.State;
+    using Reverie.Templates;
 
 
-	public class ReverieGame : GameLoop
-	{
-		#region Fields
-		private EntityWorld gameWorld;
-		private CommandParser.Interpreter interpreter;
-		#endregion
+    public class ReverieGame : GameLoop
+    {
+        #region Fields
+        private ReverieWorld reverieWorld;
+        private CommandParser.Interpreter interpreter;
+        #endregion
 
 
-		#region Constructors
-		public ReverieGame()
-		{
-			this.gameWorld = MockWorld.Generate();
-			this.interpreter = new CommandParser.Interpreter(Assembly.GetAssembly(typeof(ReverieGame)));
-		}
-		#endregion
+        #region Constructors
+        public ReverieGame()
+        {
+            // TODO: Create game world here.
+            this.interpreter = new CommandParser.Interpreter(Assembly.GetAssembly(typeof(ReverieGame)));
+        }
+        #endregion
 
 
-		#region Properties
-		public CommandParser.Interpreter Interpreter
-		{
-			get { return this.interpreter; }
-		}
+        #region Properties
+        public ReverieWorld ReverieWorld
+        {
+            get { return this.reverieWorld; }
+        }
 
 
-		public EntityWorld GameWorld
-		{
-			get { return this.gameWorld; }
-		}
-		#endregion
+        public CommandParser.Interpreter Interpreter
+        {
+            get { return this.interpreter; }
+        }
+        #endregion
 
 
-		public Entity InsertPlayer()
-		{
-			Console.WriteLine("New player");
-			Entity player = this.GameWorld.CreateEntityFromTemplate(NewPlayerTemplate.Name);
-			return player;
-		}
+        public Entity InsertPlayer()
+        {
+            Console.WriteLine("New player");
+            Entity player = this.ReverieWorld.CreateEntityFromTemplate(NewPlayerTemplate.Name);
+            return player;
+        }
 
 
-		public override void Update(long deltaTime)
-		{
-			// TODO
-		}
-	}
+        public override void Update(long deltaTime)
+        {
+            // TODO
+        }
+    }
 }

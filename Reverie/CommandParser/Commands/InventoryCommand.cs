@@ -1,10 +1,10 @@
 ﻿namespace CommandParser.Commands
 {
 	using System.Collections.Generic;
-	using Reverie.ClientModels;
+	using Reverie.Models.Client;
 
 
-	public class InventoryCommand : CommandExpression
+    public class InventoryCommand : CommandExpression
 	{
 		#region Properties
 		public override string[] Commands
@@ -32,20 +32,20 @@
 
 		public override void ProcessExpression(CommandTokens commandTokens)
 		{
-			IList<EntityModel> inventory;
+			IList<EntityClientModel> inventory;
 
 			Expression nextToken = commandTokens.GetRightToken();
 			if (nextToken != null
 				&& nextToken.ExpressionType == ExpressionType.Parameter
 				&& nextToken.Result.Equals("all"))
 			{
-				inventory = new EntityModel(commandTokens.InvokingEntity)
+				inventory = new EntityClientModel(commandTokens.InvokingEntity)
 					.SaturateContainerDetails(recurse: true)
 					.Entities;
 			}
 			else
 			{
-				inventory = new EntityModel(commandTokens.InvokingEntity)
+				inventory = new EntityClientModel(commandTokens.InvokingEntity)
 					.SaturateContainerDetails(recurse: false)
 					.Entities;
 			}

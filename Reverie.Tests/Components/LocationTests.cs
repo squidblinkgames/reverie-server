@@ -3,7 +3,6 @@
 	using NUnit.Framework;
 	using PrimitiveEngine;
 	using Reverie.Components;
-	using Reverie.Debug;
 	using Reverie.Utilities;
 
 

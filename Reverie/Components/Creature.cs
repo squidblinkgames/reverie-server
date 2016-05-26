@@ -89,7 +89,7 @@
 		}
 
 
-		public IReadOnlyCollection<Tuple<string, long?>> Parts
+		public IReadOnlyList<Tuple<string, long?>> Parts
 		{
 			get { return new ReadOnlyCollection<Tuple<string, long?>>(this.parts); }
 		}

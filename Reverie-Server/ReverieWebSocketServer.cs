@@ -6,8 +6,8 @@
 	using System.Threading.Tasks;
 	using PrimitiveEngine;
 	using Reverie.Components;
-	using Reverie.ClientModels;
 	using Reverie.Extensions;
+	using Reverie.Models.Client;
 	using Reverie.Utilities;
 	using vtortola.WebSockets;
 
@@ -59,7 +59,7 @@
 
 			MapNode playerRoom = player.GetRoom();
 			playerRoom.AddEntity(player);
-			RoomModel roomModel = new RoomModel(playerRoom, player);
+			RoomClientModel roomModel = new RoomClientModel(playerRoom, player);
 
 			MessageModel response = new MessageModel();
 			response.Meta = new MessageModel.MetaData() { Initial = true };

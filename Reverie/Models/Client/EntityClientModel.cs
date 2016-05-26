@@ -1,14 +1,14 @@
-﻿namespace Reverie.ClientModels
+﻿namespace Reverie.Models.Client
 {
-	using System;
-	using System.Collections.Generic;
-	using Newtonsoft.Json;
-	using PrimitiveEngine;
-	using PrimitiveEngine.Components;
-	using Reverie.Components;
+    using System;
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+    using PrimitiveEngine;
+    using PrimitiveEngine.Components;
+    using Reverie.Components;
 
 
-	public class EntityModel
+    public class EntityClientModel
 	{
 		#region Fields
 		private Entity entity;
@@ -16,10 +16,10 @@
 
 
 		#region Constructors
-		public EntityModel() {}
+		public EntityClientModel() {}
 
 
-		public EntityModel(Entity entity)
+		public EntityClientModel(Entity entity)
 		{
 			this.entity = entity;
 			this.Id = entity.UniqueId;
@@ -34,7 +34,7 @@
 		public int? CurrentMemory { get; set; }
 		public int? CurrentStorage { get; set; }
 		public string Description { get; set; }
-		public IList<EntityModel> Entities { get; set; }
+		public IList<EntityClientModel> Entities { get; set; }
 
 
 		[JsonIgnore]
@@ -55,10 +55,10 @@
 		#endregion
 
 
-		public EntityModel SaturateComponentDetails()
+		public EntityClientModel SaturateComponentDetails()
 		{
 			List<string> components = new List<string>();
-			Bag<Component> componentsBag = entity.EntityWorld.EntityManager.GetComponents(this.entity);
+			Bag<Component> componentsBag = this.entity.EntityWorld.EntityManager.GetComponents(this.entity);
 			foreach (Component component in componentsBag)
 			{
 				components.Add(component.GetType().Name);
@@ -69,7 +69,7 @@
 		}
 
 
-		public EntityModel SaturateContainerDetails(
+		public EntityClientModel SaturateContainerDetails(
 			bool recurse = false,
 			bool includeComponents = true)
 		{
@@ -77,7 +77,7 @@
 		}
 
 
-		public EntityModel SaturateCreatureDetails()
+		public EntityClientModel SaturateCreatureDetails()
 		{
 			Creature creature = this.entity.GetComponent<Creature>();
 			if (creature == null)
@@ -94,7 +94,7 @@
 		}
 
 
-		public EntityModel SaturateEntityDetails()
+		public EntityClientModel SaturateEntityDetails()
 		{
 			EntityDetails entityDetails = this.entity.GetComponent<EntityDetails>();
 			if (entityDetails == null)
@@ -107,7 +107,7 @@
 		}
 
 
-		public EntityModel SaturateStackDetails()
+		public EntityClientModel SaturateStackDetails()
 		{
 			EntityStack stack = this.entity.GetComponent<EntityStack>();
 			if (stack == null)
@@ -125,7 +125,7 @@
 
 
 		#region Helper Methods
-		private EntityModel SaturateContainerDetails(
+		private EntityClientModel SaturateContainerDetails(
 			Entity entity, 
 			bool recurse,
 			bool includeComponents)
@@ -134,11 +134,11 @@
 			if (container == null)
 				return this;
 
-			List<EntityModel> childModels = new List<EntityModel>();
+			List<EntityClientModel> childModels = new List<EntityClientModel>();
 			IReadOnlyCollection<Entity> children = container.GetChildEntities();
 			foreach (Entity child in children)
 			{
-				EntityModel childModel = new EntityModel(child)
+				EntityClientModel childModel = new EntityClientModel(child)
 					.SaturateStackDetails();
 				if (includeComponents)
 					childModel.SaturateComponentDetails();

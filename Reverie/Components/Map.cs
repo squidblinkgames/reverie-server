@@ -5,9 +5,10 @@
 	using System.Collections.ObjectModel;
 	using PrimitiveEngine;
 	using PrimitiveEngine.Components;
+	using Reverie.Utilities;
 
 
-	public sealed class Map : Component
+    public sealed class Map : Component
 	{
 		#region Fields
 		private readonly Dictionary<string, EntityDetails> rooms;
@@ -59,9 +60,14 @@
 		}
 
 
-		public void AddNode(int x, int y, int z, MapNode mapNode)
+		public bool AddNode(int x, int y, int z, Entity entity)
 		{
-			IntegerVector3 coordinate = new IntegerVector3(x, y, z);
+		    EntityDetails details = entity.GetEntityDetails();
+		    if (details == null)
+		        return false;
+
+
+            IntegerVector3 coordinate = new IntegerVector3(x, y, z);
 			AddNode(coordinate, mapNode);
 		}
 	}

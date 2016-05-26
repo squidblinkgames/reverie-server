@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -70,7 +70,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\PrimitiveEngine\PrimitiveEngine\PrimitiveEngine.csproj">
+    <ProjectReference Include="..\..\primitive-engine\PrimitiveEngine\PrimitiveEngine.csproj">
       <Project>{2534c349-8421-47b8-a7b7-08ac9f49dafb}</Project>
       <Name>PrimitiveEngine</Name>
     </ProjectReference>

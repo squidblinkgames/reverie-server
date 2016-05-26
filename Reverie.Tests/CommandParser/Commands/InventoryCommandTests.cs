@@ -12,10 +12,10 @@ namespace Reverie.Tests.CommandParser.Commands
 	using Reverie.Cache;
 	using Reverie.Components;
 	using Reverie.Debug;
-	using Reverie.ClientModels;
+	using Reverie.Models.Client;
 
 
-	[TestFixture]
+    [TestFixture]
 	[Category("MUD Commands")]
 	class InventoryCommandTests
 	{
@@ -28,7 +28,7 @@ namespace Reverie.Tests.CommandParser.Commands
 					this.entity,
 					"inventory").ToPrettyJson();
 				Console.WriteLine(result);
-				IList<EntityModel> inventory = JsonConvert.DeserializeObject<IList<EntityModel>>(result);
+				IList<EntityClientModel> inventory = JsonConvert.DeserializeObject<IList<EntityClientModel>>(result);
 				Assert.AreEqual(inventory.Count, 2);
 				Assert.IsNull(inventory[0].Entities);
 			}
@@ -41,7 +41,7 @@ namespace Reverie.Tests.CommandParser.Commands
 					this.entity,
 					"inventory all").ToPrettyJson();
 				Console.WriteLine(result);
-				EntityModel[] inventory = JsonConvert.DeserializeObject<EntityModel[]>(result);
+				EntityClientModel[] inventory = JsonConvert.DeserializeObject<EntityClientModel[]>(result);
 				Assert.AreEqual(inventory.Length, 2);
 				Assert.IsNotNull(inventory[0].Entities);
 			}
@@ -53,7 +53,7 @@ namespace Reverie.Tests.CommandParser.Commands
 				string result = this.interpreter.Interpret(
 					this.entity,
 					"items").ToPrettyJson();
-				IList<EntityModel> inventory = JsonConvert.DeserializeObject<IList<EntityModel>>(result);
+				IList<EntityClientModel> inventory = JsonConvert.DeserializeObject<IList<EntityClientModel>>(result);
 				Console.WriteLine(result);
 				Assert.AreEqual(inventory.Count, 2);
 				Assert.IsNull(inventory[0].Entities);
@@ -67,7 +67,7 @@ namespace Reverie.Tests.CommandParser.Commands
 					this.entity,
 					"storage").ToPrettyJson();
 				Console.WriteLine(result);
-				EntityModel[] inventory = JsonConvert.DeserializeObject<EntityModel[]>(result);
+				EntityClientModel[] inventory = JsonConvert.DeserializeObject<EntityClientModel[]>(result);
 				Assert.AreEqual(inventory.Length, 2);
 				Assert.IsNull(inventory[0].Entities);
 			}

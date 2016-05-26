@@ -52,7 +52,7 @@
 		/// The child entity ids.
 		/// </value>
 		[JsonProperty]
-		public IReadOnlyCollection<Guid> ChildEntityIds
+		public IReadOnlyList<Guid> ChildEntityIds
 		{
 			get
 			{
@@ -92,7 +92,7 @@
 		/// Get all Entities contained by the container.
 		/// </summary>
 		/// <returns></returns>
-		public IReadOnlyCollection<Entity> GetChildEntities()
+		public IReadOnlyList<Entity> GetChildEntities()
 		{
 			List<Entity> inventoryItems = new List<Entity>();
 			if (this.ChildEntityIds == null)

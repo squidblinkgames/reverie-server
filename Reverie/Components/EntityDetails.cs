@@ -2,7 +2,6 @@ namespace Reverie.Components
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Linq;
 	using PrimitiveEngine;
 	using PrimitiveEngine.Components;
 	using Reverie.Cache;

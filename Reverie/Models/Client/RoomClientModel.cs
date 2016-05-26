@@ -1,18 +1,18 @@
-﻿namespace Reverie.ClientModels
+﻿namespace Reverie.Models.Client
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using PrimitiveEngine;
-	using Reverie.Components;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using PrimitiveEngine;
+    using Reverie.Components;
 
 
-	public class RoomModel
+    public class RoomClientModel
 	{
 		#region Fields
 		private Guid? player;
-		private IEnumerable<EntityModel> entities;
+		private IEnumerable<EntityClientModel> entities;
 		private IEnumerable<Entity> characters;
 		private IEnumerable<Entity> items;
 		private string message;
@@ -20,7 +20,7 @@
 
 
 		#region Constructors
-		public RoomModel(MapNode mapNode, Entity player)
+		public RoomClientModel(MapNode mapNode, Entity player)
 		{
 			this.player = player.UniqueId;
 			SaturateEntities(mapNode, player);
@@ -30,7 +30,7 @@
 
 
 		#region Properties
-		public IEnumerable<EntityModel> Entities
+		public IEnumerable<EntityClientModel> Entities
 		{
 			get { return this.entities; }
 		}
@@ -65,7 +65,7 @@
 				.AppendLine(roomDetails.Description)
 				.AppendLine();
 
-			foreach (Entity item in items)
+			foreach (Entity item in this.items)
 			{
 				EntityDetails itemDetails = item.GetComponent<EntityDetails>();
 				description.AppendLine(
@@ -73,7 +73,7 @@
 					"(/items/" + item.UniqueId + ") here.");
 			}
 
-			foreach (Entity character in characters)
+			foreach (Entity character in this.characters)
 			{
 				EntityDetails characterDetails = character.GetComponent<EntityDetails>();
 				description.AppendLine(
@@ -96,7 +96,7 @@
 			if (mapNode.EntityIds == null)
 				return;
 
-			List<EntityModel> entityModels = new List<EntityModel>();
+			List<EntityClientModel> entityModels = new List<EntityClientModel>();
 			IEnumerable<Entity> roomEntities =
 				from entity in mapNode.GetEntities()
 				where entity != player
@@ -108,7 +108,7 @@
 				select entity;
 			foreach (Entity character in this.characters)
 			{
-				EntityModel entityModel = new EntityModel(character)
+				EntityClientModel entityModel = new EntityClientModel(character)
 					.SaturateComponentDetails()
 					.SaturateCreatureDetails();
 				entityModels.Add(entityModel);
@@ -120,14 +120,14 @@
 				select entity;
 			foreach (Entity item in this.items)
 			{
-				EntityModel entityModel = new EntityModel(item)
+				EntityClientModel entityModel = new EntityClientModel(item)
 					.SaturateComponentDetails()
 					.SaturateStackDetails();
 				entityModels.Add(entityModel);
 			}
 
 			if (player != null)
-				entityModels.Add(new EntityModel(player)
+				entityModels.Add(new EntityClientModel(player)
 					.SaturateComponentDetails()
 					.SaturateCreatureDetails()
 					.SaturateContainerDetails(recurse: true));
